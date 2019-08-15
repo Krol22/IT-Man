@@ -15,9 +15,13 @@ function ECS(systems) {
 };
 
 function Entity(components) {
-  this.components = components;
+  this.components = {}; 
   this.componentTypes = components.map(component => component.name);
-}
+
+  components.forEach(component => {
+    this.components[component.name] = component;
+  });
+};
 
 module.exports = {
   ECS,
