@@ -10,12 +10,15 @@ const drawSystem = {
   },
   update: () => {
     this.context.clearRect(0, 0, 800, 600);
+    this.context.fillRect(0, 0, 800, 600);
 
     this.systemEntities.forEach(entity => {
-      const { x, y, width, height, frame } = entity.components['D'];
+      const { x, y, width, height, image } = entity.components['D'];
 
-      this.context.rect(x, y, width, height);
-      this.context.stroke();
+      this.context.save();
+      this.context.translate(x, y);
+      this.context.drawImage(image, 0, 0, 14, 24, 0, 0, 14, 24);
+      this.context.restore();
     });
   }
 }
