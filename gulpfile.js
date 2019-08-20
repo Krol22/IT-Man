@@ -15,7 +15,7 @@ var htmlmin = require('gulp-htmlmin');
 var less = require('gulp-less');
 var micro = require('gulp-micro');
 var size = require('gulp-size');
-var uglify = require('gulp-uglify');
+var terser = require('gulp-terser');
 var zip = require('gulp-zip');
 var source = require('vinyl-source-stream');
 
@@ -51,7 +51,7 @@ gulp.task('build_source', function() {
     .on('error', browserifyError)
     .pipe(source('build.js'))
     .pipe(buffer())
-    .pipe(gulpif(prod, uglify()))
+    .pipe(terser())
     .pipe(gulp.dest('build'));
 });
 
