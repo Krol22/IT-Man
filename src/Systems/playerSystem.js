@@ -15,7 +15,8 @@ const playerSystem = {
   init: entities => {
     this.systemEntities = entities.filter(entity => 
       entity.componentTypes.includes('P') &&
-      entity.componentTypes.includes('Ph')
+      entity.componentTypes.includes('Ph') && 
+      entity.componentTypes.includes('A')
     );
   },
   update: delta => {
@@ -37,12 +38,16 @@ const playerSystem = {
       }
 
       const physicsComponent = entity.components['Ph'];
+      const drawCompponent = entity.components['D'];
+      const animationComponent = entity.components['A'];
 
       switch(entity.state) {
         case 'GO_UP': 
+          animationComponent.state = 'WALK';
           physicsComponent.ay = -PLAYER_AY;
           break;
         case 'GO_DOWN': 
+          animationComponent.state = 'WALK';
           physicsComponent.ay = PLAYER_AY;
           break;
         default: 
@@ -53,15 +58,23 @@ const playerSystem = {
 
       switch(entity.state) {
         case 'GO_LEFT': 
+          animationComponent.state = 'WALK';
           physicsComponent.ax = -PLAYER_AX;
+          drawCompponent.flipX = true;
           break;
         case 'GO_RIGHT': 
+          animationComponent.state = 'WALK';
           physicsComponent.ax = PLAYER_AX;
+          drawCompponent.flipX = false;
           break;
         default: 
           physicsComponent.ax = 0;
           physicsComponent.vx = 0;
           break;
+      }
+
+      if (entity.state === 'IDLE') {
+        animationComponent.state = 'IDLE';
       }
     });
   }
