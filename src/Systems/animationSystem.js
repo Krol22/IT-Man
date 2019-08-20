@@ -43,7 +43,7 @@ const animationSystem = {
 
       delayTimer = 0;
       entity.components['A'].currentFrame += 1;
-      if (currentFrame >= animations[state].frames.length) {
+      if (entity.components['A'].currentFrame > animations[state].frames[animations[state].frames.length - 1]) {
         entity.components['A'].currentFrame = animations[state].frames[0];
         return;
       }

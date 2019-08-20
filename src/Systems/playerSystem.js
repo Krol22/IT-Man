@@ -16,7 +16,8 @@ const playerSystem = {
     this.systemEntities = entities.filter(entity => 
       entity.componentTypes.includes('P') &&
       entity.componentTypes.includes('Ph') && 
-      entity.componentTypes.includes('A')
+      entity.componentTypes.includes('A') &&
+      entity.componentTypes.includes('D')
     );
   },
   update: delta => {
@@ -75,6 +76,10 @@ const playerSystem = {
 
       if (entity.state === 'IDLE') {
         animationComponent.state = 'IDLE';
+      }
+
+      if (entity.state === 'BACK_UP') {
+        animationComponent.state = 'BACK_UP';
       }
     });
   }
