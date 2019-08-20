@@ -8,8 +8,6 @@ const drawSystem = require('./Systems/drawSystem');
 const animationSystem = require('./Systems/animationSystem');
 const collisionSystem = require('./Systems/collisionSystem');
 
-const imageSrc = 'IT_Man.png';
-
 const loadAsset = imageSrc => {
   return new Promise(resolve => {
     const asset = new Image();
@@ -26,7 +24,8 @@ const loadAsset = imageSrc => {
 
 
 const start = async () => {
-  const playerAsset = await loadAsset(imageSrc);
+  const playerAsset = await loadAsset('IT_Man.png');
+  const computerAsset = await loadAsset('Computer.png')
   const entities = [
     new Entity([
       { name: 'P', state: 'idle', alive: true }, 
@@ -60,16 +59,61 @@ const start = async () => {
       { name: 'Ph', x: 0, y: 0, vx: 0, vy: 0, ax: 0, ay: 0, width: 96, height: 96 },
     ]),
     new Entity([
-      { name: 'D', x: 100, y: 100, width: 14, height: 24 },
-      { name: 'Ph', x: 100, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 14, height: 14 },
+      { name: 'D', x: 210, y: 100, width: 64, height: 64, image: computerAsset },
+      { 
+        name: 'A',
+        currentFrame: 0,
+        state: 'FIXED',
+        frames: 3,
+        animations: {
+          LOCKED: 2,
+          BROKEN: {
+            frames: [0, 1],
+            time: 5
+          },
+          FIXED: 1,
+        },
+        delayTimer: 0,
+      },
+      { name: 'Ph', x: 210, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
     ]),
     new Entity([
-      { name: 'D', x: 130, y: 130, width: 140, height: 240 },
-      { name: 'Ph', x: 530, y: 160, vx: 0, vy: 0, ax: 0, ay: 0, width: 140, height: 140 },
+      { name: 'D', x: 100, y: 100, width: 64, height: 64, image: computerAsset },
+      { 
+        name: 'A',
+        currentFrame: 0,
+        state: 'BROKEN',
+        frames: 3,
+        animations: {
+          LOCKED: 2,
+          BROKEN: {
+            frames: [0, 1],
+            time: 5
+          },
+          FIXED: 0,
+        },
+        delayTimer: 0,
+      },
+      { name: 'Ph', x: 100, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
     ]),
     new Entity([
-      { name: 'D', x: 130, y: 130, width: 140, height: 240 },
-      { name: 'Ph', x: 130, y: 130, vx: 0, vy: 0, ax: 0, ay: 0, width: 140, height: 140 },
+      { name: 'D', x: 320, y: 100, width: 64, height: 64, image: computerAsset },
+      { 
+        name: 'A',
+        currentFrame: 0,
+        state: 'LOCKED',
+        frames: 3,
+        animations: {
+          LOCKED: 2,
+          BROKEN: {
+            frames: [0, 1],
+            time: 5
+          },
+          FIXED: 0,
+        },
+        delayTimer: 0,
+      },
+      { name: 'Ph', x: 320, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
     ]),
   ];
 

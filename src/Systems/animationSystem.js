@@ -26,7 +26,7 @@ const animationSystem = {
       });
 
       if (currentState !== state) {
-        delayTimer = 0;
+        entity.components['A'].delayTimer = 0;
         if (animations[state].frames) {
           entity.components['A'].currentFrame = animations[state].frames[0];
         } else {
@@ -35,13 +35,13 @@ const animationSystem = {
         return;
       }
 
-      delayTimer++;
-      if (delayTimer <= animations[state].time) {
+      entity.components['A'].delayTimer++;
+      if (entity.components['A'].delayTimer <= animations[state].time) {
         return;
       }
 
 
-      delayTimer = 0;
+      entity.components['A'].delayTimer = 0;
       entity.components['A'].currentFrame += 1;
       if (entity.components['A'].currentFrame > animations[state].frames[animations[state].frames.length - 1]) {
         entity.components['A'].currentFrame = animations[state].frames[0];
