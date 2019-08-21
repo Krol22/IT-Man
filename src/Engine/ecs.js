@@ -16,10 +16,10 @@ function ECS(systems) {
 
 function Entity(components) {
   this.components = {}; 
-  this.componentTypes = components.map(component => component.name);
+  this.componentTypes = components.map(component => component.n);
 
   components.forEach(component => {
-    this.components[component.name] = component;
+    this.components[component.n] = component;
   });
 };
 
