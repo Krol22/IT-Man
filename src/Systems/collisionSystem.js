@@ -11,7 +11,6 @@ const collides = (player, object) => {
 
 const handlePlayerObjectCollision = (player, object) => {
   if(collides(player, object)) {
-    console.log('collides');
     let xDepth = player.width + player.x - object.x;
     let x2Depth = object.x + object.width - player.x;
     let yDepth = player.height + player.y - object.y;

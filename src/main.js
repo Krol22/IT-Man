@@ -60,8 +60,8 @@ const start = async () => {
       { n: 'Ph', x: 0, y: 0, vx: 0, vy: 0, ax: 0, ay: 0, width: 96, height: 96 },
     ]),
     new Entity([
-      { n: 'Cp', state: 'FIXED' },
-      { n: 'D', x: 210, y: 100, width: 64, height: 64, image: computerAsset },
+      { n: 'Cp', state: 'LOCKED' },
+      { n: 'D', x: 100, y: 100, width: 64, height: 64, image: computerAsset },
       { 
         n: 'A',
         currentFrame: 0,
@@ -77,47 +77,7 @@ const start = async () => {
         },
         delayTimer: 0,
       },
-      { n: 'Ph', x: 210, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
-    ]),
-    new Entity([
-      { n: 'Cp', state: 'BROKEN' },
-      { n: 'D', x: 100, y: 100, width: 64, height: 64, image: computerAsset },
-      { 
-        n: 'A',
-        currentFrame: 0,
-        state: 'BROKEN',
-        frames: 3,
-        animations: {
-          LOCKED: 2,
-          BROKEN: {
-            frames: [0, 1],
-            time: 5
-          },
-          FIXED: 0,
-        },
-        delayTimer: 0,
-      },
       { n: 'Ph', x: 100, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
-    ]),
-    new Entity([
-      { n: 'Cp', state: 'LOCKED' },
-      { n: 'D', x: 320, y: 100, width: 64, height: 64, image: computerAsset },
-      { 
-        n: 'A',
-        currentFrame: 0,
-        state: 'LOCKED',
-        frames: 3,
-        animations: {
-          LOCKED: 2,
-          BROKEN: {
-            frames: [0, 1],
-            time: 5
-          },
-          FIXED: 0,
-        },
-        delayTimer: 0,
-      },
-      { n: 'Ph', x: 320, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
     ]),
   ];
 

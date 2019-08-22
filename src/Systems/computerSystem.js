@@ -8,25 +8,19 @@ function collides (player, object) {
     player.y + player.height > object.y);
 };
 
-function isNear(playerEntity, computerPhComponent, context) {
+function isNear(playerEntity, computerPhComponent) {
   const { x: px, y: py, width: pw, height: ph } = playerEntity.components['Ph'];
   const { flipX } = playerEntity.components['D'];
-
-  let playerCenterX = px + pw / 2; 
   let playerCenterY = py + ph / 2;
 
   const { x: cx, y: cy, width: cw, height: ch } = computerPhComponent;
 
   if (!flipX) { // player faces left
-    context.rect(px + pw + 10, playerCenterY, 10, 10);
-    context.stroke();
-    context.rect(cx, cy, cw, ch);
-    context.stroke();
     return collides({
       x: px + pw + 10,
       y: playerCenterY, 
       width: 10,
-      heigth: 10,
+      height: 10,
     }, {
       x: cx,
       y: cy,
@@ -35,10 +29,10 @@ function isNear(playerEntity, computerPhComponent, context) {
     }); 
   } else { // player faces right
     return collides({
-      x: playerCenterX - 20,
+      x: px - 10,
       y: playerCenterY, 
-      width: pw,
-      heigth: ph,
+      width: 10,
+      height: 10,
     }, {
       x: cx,
       y: cy,
@@ -46,12 +40,10 @@ function isNear(playerEntity, computerPhComponent, context) {
       height: ch,
     }); 
   }
-
 }
 
 const computerSystem = {
-  init: (entities, context) => {
-    this.context = context;
+  init: (entities) => {
     this.playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
     this.systemEntities = entities.filter(entity => entity.componentTypes.includes('Cp'));
   },
@@ -60,14 +52,12 @@ const computerSystem = {
       const phComponent = entity.components['Ph'];
       const cpComponent = entity.components['Cp'];
       const aComponent = entity.components['A'];
-      const playerPhComponent = this.playerEntity.components['Ph'];
 
       if (this.playerEntity.components['P'].state !== 'BACK_UP') {
         return;
       }
 
-      if (!isNear(this.playerEntity, phComponent, this.context)) {
-        console.log('no');
+      if (!isNear(this.playerEntity, phComponent)) {
         return;
       }
 
@@ -76,6 +66,11 @@ const computerSystem = {
         case 'BROKEN': 
           cpComponent.state = 'FIXED';
           aComponent.state = 'FIXED';
+          break;
+        case 'LOCKED':
+          cpComponent.state = 'BROKEN';
+          aComponent.state = 'BROKEN';
+          break;
       }
     });
   },
