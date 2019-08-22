@@ -26,7 +26,12 @@ const drawSystem = {
         height, 
         image,
         flipX,
+        invisible,
       } = entity.components['D'];
+
+      if (invisible) {
+        return;
+      }
 
       const animationComponent = entity.components['A'];
 
