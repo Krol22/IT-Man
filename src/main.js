@@ -7,6 +7,7 @@ const physicsSystem = require('./Systems/physicsSystem');
 const drawSystem = require('./Systems/drawSystem');
 const animationSystem = require('./Systems/animationSystem');
 const collisionSystem = require('./Systems/collisionSystem');
+const computerSystem = require('./Systems/computerSystem');
 
 const loadAsset = imageSrc => {
   return new Promise(resolve => {
@@ -28,9 +29,9 @@ const start = async () => {
   const computerAsset = await loadAsset('Computer.png')
   const entities = [
     new Entity([
-      { name: 'P', state: 'idle', alive: true }, 
+      { n: 'P', state: 'idle', alive: true }, 
       { 
-        name: 'D',
+        n: 'D',
         x: 0,
         y: 10,
         width: 96,
@@ -39,7 +40,7 @@ const start = async () => {
         image: playerAsset,
       },
       { 
-        name: 'A',
+        n: 'A',
         currentFrame: 0,
         state: 'IDLE',
         frames: 5,
@@ -56,12 +57,13 @@ const start = async () => {
         },		
         delayTimer: 0,
       },
-      { name: 'Ph', x: 0, y: 0, vx: 0, vy: 0, ax: 0, ay: 0, width: 96, height: 96 },
+      { n: 'Ph', x: 0, y: 0, vx: 0, vy: 0, ax: 0, ay: 0, width: 96, height: 96 },
     ]),
     new Entity([
-      { name: 'D', x: 210, y: 100, width: 64, height: 64, image: computerAsset },
+      { n: 'Cp', state: 'LOCKED' },
+      { n: 'D', x: 100, y: 100, width: 64, height: 64, image: computerAsset },
       { 
-        name: 'A',
+        n: 'A',
         currentFrame: 0,
         state: 'FIXED',
         frames: 3,
@@ -75,53 +77,16 @@ const start = async () => {
         },
         delayTimer: 0,
       },
-      { name: 'Ph', x: 210, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
-    ]),
-    new Entity([
-      { name: 'D', x: 100, y: 100, width: 64, height: 64, image: computerAsset },
-      { 
-        name: 'A',
-        currentFrame: 0,
-        state: 'BROKEN',
-        frames: 3,
-        animations: {
-          LOCKED: 2,
-          BROKEN: {
-            frames: [0, 1],
-            time: 5
-          },
-          FIXED: 0,
-        },
-        delayTimer: 0,
-      },
-      { name: 'Ph', x: 100, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
-    ]),
-    new Entity([
-      { name: 'D', x: 320, y: 100, width: 64, height: 64, image: computerAsset },
-      { 
-        name: 'A',
-        currentFrame: 0,
-        state: 'LOCKED',
-        frames: 3,
-        animations: {
-          LOCKED: 2,
-          BROKEN: {
-            frames: [0, 1],
-            time: 5
-          },
-          FIXED: 0,
-        },
-        delayTimer: 0,
-      },
-      { name: 'Ph', x: 320, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
+      { n: 'Ph', x: 100, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
     ]),
   ];
 
-  const ecs = new ECS([playerSystem, physicsSystem, drawSystem, animationSystem, collisionSystem]);
+  const ecs = new ECS([playerSystem, physicsSystem, drawSystem, animationSystem, collisionSystem, computerSystem]);
 
   inputManager.init();
   const canvas = document.querySelector('#game');
-  drawSystem.init(entities, canvas);
+  const context = drawSystem.init(entities, canvas);
+  computerSystem.init(entities, context);
   collisionSystem.init(entities);
   playerSystem.init(entities);
   physicsSystem.init(entities);

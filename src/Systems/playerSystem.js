@@ -22,27 +22,28 @@ const playerSystem = {
   },
   update: delta => {
     this.systemEntities.forEach(entity => {
+      const playerComponent = entity.components['P'];
       if (inputManager.keys[LEFT].isDown) {
-        entity.state = 'GO_LEFT';
+        playerComponent.state = 'GO_LEFT';
       } else if (inputManager.keys[RIGHT].isDown) {
-        entity.state = 'GO_RIGHT';
+        playerComponent.state = 'GO_RIGHT';
       } else if (inputManager.keys[UP].isDown) {
-        entity.state = 'GO_UP';
+        playerComponent.state = 'GO_UP';
       } else if (inputManager.keys[DOWN].isDown) {
-        entity.state = 'GO_DOWN';
+        playerComponent.state = 'GO_DOWN';
       } else {
-        entity.state = 'IDLE';
+        playerComponent.state = 'IDLE';
       }
 
       if (inputManager.keys[SPACE].isDown) {
-        entity.state = 'BACK_UP';
+        playerComponent.state = 'BACK_UP';
       }
 
       const physicsComponent = entity.components['Ph'];
       const drawCompponent = entity.components['D'];
       const animationComponent = entity.components['A'];
 
-      switch(entity.state) {
+      switch(playerComponent.state) {
         case 'GO_UP': 
           animationComponent.state = 'WALK';
           physicsComponent.ay = -PLAYER_AY;
@@ -57,7 +58,7 @@ const playerSystem = {
           break;
       }
 
-      switch(entity.state) {
+      switch(playerComponent.state) {
         case 'GO_LEFT': 
           animationComponent.state = 'WALK';
           physicsComponent.ax = -PLAYER_AX;
@@ -74,11 +75,11 @@ const playerSystem = {
           break;
       }
 
-      if (entity.state === 'IDLE') {
+      if (playerComponent.state === 'IDLE') {
         animationComponent.state = 'IDLE';
       }
 
-      if (entity.state === 'BACK_UP') {
+      if (playerComponent.state === 'BACK_UP') {
         animationComponent.state = 'BACK_UP';
       }
     });
