@@ -7,9 +7,12 @@
   "license": "MIT",
   "repository": "ooflorent/js13k-boilerplate",
   "devDependencies": {
-    "browserify": "^5.10.0",
+    "@babel/core": "^7.5.5",
+    "babelify": "^10.0.0",
+    "browserify": "^5.13.1",
     "bundle-collapser": "^1.1.0",
     "commander": "^2.3.0",
+    "esmify": "^2.1.1",
     "express": "^4.8.4",
     "gulp": "^3.8.7",
     "gulp-buffer": "0.0.2",
@@ -33,5 +36,8 @@
     "dist": "gulp dist --prod",
     "start": "gulp watch serve",
     "test": "gulp lint"
+  },
+  "dependencies": {
+    "innerself": "^0.1.1"
   }
 }

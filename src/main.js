@@ -10,6 +10,8 @@ const collisionSystem = require('./Systems/collisionSystem');
 const computerSystem = require('./Systems/computerSystem');
 const itemSystem = require('./Systems/itemSystem');
 
+require('./UI/App');
+
 const loadAsset = imageSrc => {
   return new Promise(resolve => {
     const asset = new Image();
@@ -103,7 +105,7 @@ const createComputerEntity = async () => {
       { n: 'Ph', x: 140, y: 200, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
     ]),
     new Entity([
-      { n: 'Cp', state: 'BROKEN', timer: 0, password: 'SECRET_123' },
+      { n: 'Cp', state: 'BROKEN', backupTimer: 0, password: 'SECRET_123' },
       { n: 'D', x: 100, y: 100, width: 64, height: 64, image: computerAsset },
       { 
         n: 'A',

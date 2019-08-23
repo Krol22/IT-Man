@@ -54,6 +54,7 @@ const computerSystem = {
       const aComponent = entity.components['A'];
 
       if (this.playerEntity.components['P'].state !== 'BACK_UP') {
+        cpComponent.backupTimer = 0;
         return;
       }
 
@@ -64,8 +65,12 @@ const computerSystem = {
 
       switch(cpComponent.state) {
         case 'BROKEN': 
-          cpComponent.state = 'FIXED';
-          aComponent.state = 'FIXED';
+          cpComponent.backupTimer++;
+          if (cpComponent.backupTimer > 20) {
+            cpComponent.state = 'FIXED';
+            aComponent.state = 'FIXED';
+            cpComponent.backupTimer = 0;
+          }
           break;
         case 'LOCKED':
           cpComponent.state = 'BROKEN';
