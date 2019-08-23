@@ -49,9 +49,18 @@ const itemSystem = {
 
       floatItem(itemComponent, drawComponent);
 
-      if (collides(this.player.components['Ph'], drawComponent)) {
-        drawComponent.invisible = true;
+      if (!collides(this.player.components['Ph'], drawComponent)) {
+        return;
       }
+
+      drawComponent.invisible = true;
+
+      if (itemComponent.type === 'LIFE') {
+        window.dispatch('ADD_LIFE');
+        return;
+      }
+
+      window.dispatch('ADD_EQ', itemComponent.name);
     });
   },
 }

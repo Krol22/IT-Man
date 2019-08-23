@@ -136,15 +136,15 @@ const start = async () => {
   const entities = [
     player, ...computer,
     new Entity([
-      { n: 'I', type: 'PASS', pass: 'SECRET_123', floatTimer: 1, floatDirection: -1, timer: 0 },
+      { n: 'I', name: 'Password', type: 'PASS', pass: 'SECRET_123', floatTimer: 1, floatDirection: -1, timer: 0 },
       { n: 'D', x: 250, y: 120, width: 52, height: 52, image: passwordAsset },
     ]),
     new Entity([
-      { n: 'I', type: 'FIRE_EX', floatTimer: 5, floatDirection: -1, timer: 0 },
+      { n: 'I', name: 'Fire extuinguisher', type: 'FIRE_EX', floatTimer: 5, floatDirection: -1, timer: 0 },
       { n: 'D', x: 250, y: 220, width: 52, height: 52, image: fireExAsset },
     ]),
     new Entity([
-      { n: 'I', type: 'LIFE', floatTimer: 10, floatDirection: -1, timer: 0 },
+      { n: 'I', name: 'Life', type: 'LIFE', floatTimer: 10, floatDirection: -1, timer: 0 },
       { n: 'D', x: 250, y: 320, width: 52, height: 52, image: lifeAsset },
     ]),
   ];

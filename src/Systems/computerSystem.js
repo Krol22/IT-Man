@@ -55,6 +55,7 @@ const computerSystem = {
 
       if (this.playerEntity.components['P'].state !== 'BACK_UP') {
         cpComponent.backupTimer = 0;
+        window.dispatch('HIDE_BU_MODAL');
         return;
       }
 
@@ -66,10 +67,13 @@ const computerSystem = {
       switch(cpComponent.state) {
         case 'BROKEN': 
           cpComponent.backupTimer++;
-          if (cpComponent.backupTimer > 20) {
+          window.dispatch('SHOW_BU_MODAL', cpComponent.backupTimer, phComponent.x, phComponent.y);
+          if (cpComponent.backupTimer > 40) {
             cpComponent.state = 'FIXED';
             aComponent.state = 'FIXED';
             cpComponent.backupTimer = 0;
+            window.dispatch('ADD_SCORE', 100);
+            window.dispatch('HIDE_BU_MODAL');
           }
           break;
         case 'LOCKED':
