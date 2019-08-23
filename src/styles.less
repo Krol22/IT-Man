@@ -1,6 +1,13 @@
+@font-face {
+  font-family: VT;
+  src: url('./VT323-Regular.ttf');
+}
+
 html {
   overflow: hidden;
   image-rendering: crisp-edges;
+
+  font-family: VT;
 }
 
 .canvas {
@@ -14,9 +21,14 @@ html {
   width: 800px;
 }
 
-.modal {
+.buModal {
   position: absolute;
-  background-color: red;
+  border: 2px solid black;
+  background-color: white;
+}
+
+.pModal {
+  position: absolute;
 }
 
 .outerUI {

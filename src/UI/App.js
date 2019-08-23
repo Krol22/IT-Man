@@ -35,9 +35,10 @@ function reducer(state = init, action, args) {
     }
     // show back up modal
     case 'SHOW_BU_MODAL': {
-      const [, bumX, bumY] = args;
+      const [buTime, bumX, bumY] = args;
       return {
         ...state,
+        buTime,
         bumX,
         bumY,
         displayBUModal: true,
@@ -64,16 +65,17 @@ function BackingUpModal(state) {
     return html``;
   }
 
-  console.log(bumX, bumY);
-
   return html`
     <style>
-      .modal {
-        top: ${bumY + 100}px;
+      .buModal {
+        top: ${bumY}px;
         left: ${bumX}px;
       }
     </style>
-    <div class="modal">BACKING_UP</div>
+    <div class="buModal">
+      <h3 class="title">BACKING UP</h3>
+      <div class="perc">${buTime}%</div>
+    </div>
   `
 }
 
