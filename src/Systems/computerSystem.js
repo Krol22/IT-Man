@@ -1,3 +1,4 @@
+const { SCALE } = require('../const');
 /*
   ComputerSystem - Cp
 */
@@ -67,7 +68,7 @@ const computerSystem = {
       switch(cpComponent.state) {
         case 'BROKEN': 
           cpComponent.backupTimer++;
-          window.dispatch('SHOW_BU_MODAL', cpComponent.backupTimer, phComponent.x, phComponent.y);
+          window.dispatch('SHOW_BU_MODAL', cpComponent.backupTimer, phComponent.x * SCALE, phComponent.y * SCALE);
           if (cpComponent.backupTimer > 40) {
             cpComponent.state = 'FIXED';
             aComponent.state = 'FIXED';

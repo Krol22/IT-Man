@@ -1,4 +1,4 @@
-const { SCALE_X, SCALE_Y, colors } = require('../const');
+const { SCALE } = require('../const');
 
 /* 
   DrawSystem - D
@@ -51,17 +51,17 @@ const drawSystem = {
       }
 
       this.context.save();
-      this.context.translate(x, y);
+      this.context.translate(x * SCALE, y * SCALE);
 
       if (animationComponent) {
         const { currentFrame } = animationComponent;
         if (flipX) {
           this.context.scale(-1, 1);
-          this.context.translate(-width, 0);
+          this.context.translate(-(width * SCALE), 0);
         }
-        this.context.drawImage(image, currentFrame * frameWidth, 0, frameWidth, frameHeight, 0, 0, width, height);
+        this.context.drawImage(image, currentFrame * frameWidth, 0, frameWidth, frameHeight, 0, 0, width * SCALE, height * SCALE);
       } else {
-        this.context.drawImage(image, 0, 0, frameWidth, frameHeight, 0, 0, width, height);
+        this.context.drawImage(image, 0, 0, frameWidth, frameHeight, 0, 0, width * SCALE, height * SCALE);
       }
       this.context.restore();
     });
