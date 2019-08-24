@@ -71,8 +71,8 @@ function BackingUpModal(state) {
   return html`
     <style>
       .buModal {
-        top: ${bumY - window.gameCamera.y * SCALE}px;
-        left: ${bumX - window.gameCamera.x * SCALE}px;
+        top: ${175 + bumY - window.gameCamera.y * SCALE}px;
+        left: ${100 + bumX - window.gameCamera.x * SCALE}px;
       }
     </style>
     <div class="buModal">
