@@ -5,19 +5,13 @@ const { SCALE } = require('../const');
 */
 
 const drawSystem = {
-  init: (entities, canvas) => {
+  init: (entities, context) => {
     this.systemEntities = entities.filter(entity => entity.componentTypes.includes('D'));
-    this.context = canvas.getContext('2d');
+    this.context = context;
     this.context.webkitImageSmoothingEnabled = false;
     this.context.imageSmoothingEnabled = false;
-
-    return this.context;
   },
   update: () => {
-    this.context.clearRect(0, 0, 800, 600);
-    this.context.fillStyle = '#fff';
-    this.context.fillRect(0, 0, 800, 600);
-
     this.systemEntities.forEach(entity => {
       const { 
         x, 

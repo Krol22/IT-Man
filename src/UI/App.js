@@ -1,4 +1,5 @@
 const { html, createStore } = require('./innerself');
+const { SCALE } = require('../const');
 
 const init = {
   eq: [],
@@ -65,11 +66,13 @@ function BackingUpModal(state) {
     return html``;
   }
 
+  console.log(bumX, window.gameCamera.x, bumY, window.gameCamera.y);
+
   return html`
     <style>
       .buModal {
-        top: ${bumY}px;
-        left: ${bumX}px;
+        top: ${bumY - window.gameCamera.y * SCALE}px;
+        left: ${bumX - window.gameCamera.x * SCALE}px;
       }
     </style>
     <div class="buModal">

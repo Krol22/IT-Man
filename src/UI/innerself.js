@@ -39,8 +39,6 @@ function createStore(reducer) {
     };
 }
 
-console.log(html, createStore);
-
 module.exports = {
   html, 
   createStore,

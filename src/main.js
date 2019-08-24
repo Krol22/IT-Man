@@ -11,6 +11,7 @@ const computerSystem = require('./Systems/computerSystem');
 const itemSystem = require('./Systems/itemSystem');
 
 const MapGenerator = require('./Heplers/MapGenerator');
+const Camera = require('./Heplers/Camera');
 
 require('./UI/App');
 
@@ -50,11 +51,17 @@ const start = async () => {
 
   const entities = mapGenerator.loadMap(0);
 
-  console.log(entities);
-
   inputManager.init();
   const canvas = document.querySelector('#game');
-  const context = drawSystem.init(entities, canvas);
+  const context = canvas.getContext('2d');
+  const camera = new Camera(0, 0, 800, 600, context);
+  // For UI;
+  window.gameCamera = camera;
+
+  const playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
+  camera.followPoint(playerEntity.components['D']);
+
+  drawSystem.init(entities, context);
   computerSystem.init(entities, context);
   itemSystem.init(entities);
   collisionSystem.init(entities);
@@ -64,6 +71,7 @@ const start = async () => {
 
   gameLoop.start(delta => {
     inputManager.update();
+    camera.update();
     ecs.update(delta);
   });
 } 
