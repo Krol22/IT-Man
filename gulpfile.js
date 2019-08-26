@@ -18,7 +18,6 @@ var size = require('gulp-size');
 var terser = require('gulp-terser');
 var zip = require('gulp-zip');
 var source = require('vinyl-source-stream');
-var esmify = require('esmify');
 
 program.on('--help', function(){
   console.log('  Tasks:');
@@ -42,20 +41,17 @@ gulp.task('default', ['build']);
 gulp.task('build', ['build_source', 'build_index', 'build_styles']);
 
 gulp.task('build_source', function() {
-  var bundler = browserify('./src/main', {debug: !prod,
-    plugin: [
-      [ esmify, {} ],
-    ]});
-  if (prod) {
-    bundler.plugin(require('bundle-collapser/plugin'));
-  }
+  var bundler = browserify('./src/main', {debug: !prod});
+  // if (prod) {
+    // bundler.plugin(require('bundle-collapser/plugin'));
+  // }
 
   return bundler
     .bundle()
     .on('error', browserifyError)
     .pipe(source('build.js'))
     .pipe(buffer())
-    // .pipe(terser())
+    .pipe(gulpif(prod, terser()))
     .pipe(gulp.dest('build'));
 });
 
