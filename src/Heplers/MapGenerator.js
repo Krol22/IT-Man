@@ -1,4 +1,5 @@
 const { Entity } = require('../Engine/ecs');
+const generateWal = require('./Wall.helper');
 
 const TILE_SIZE = 96;
 

@@ -5,6 +5,8 @@ const GSM = require('./Engine/gsm');
 const Camera = require('./Heplers/Camera');
 const levelState = require('./States/levelState');
 
+const generateWall = require('./Heplers/Wall.helper');
+
 require('./UI/App');
 
 const canvas = document.querySelector('#game');
@@ -20,6 +22,14 @@ const menuState = {
   },
   update: () => {},
 }
+
+const fakeMap = [
+  ['', '', ''],
+  ['', 6, ''],
+  ['', 6, ''],
+];
+
+console.log(generateWall({ map: fakeMap }, 1, 1));
 
 const start = async () => {
   const gsm = new GSM();
