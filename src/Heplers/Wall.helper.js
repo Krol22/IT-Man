@@ -1,5 +1,7 @@
 function generateWall (mapGenerator, x, y) {
-  const { map } = mapGenerator;
+  const { mapData } = mapGenerator;
+  const map = mapData[0];
+
   const walls = [];
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
@@ -12,11 +14,13 @@ function generateWall (mapGenerator, x, y) {
         continue;
       }
 
-      if (map[x + i - 1][ x + j - 1] === 6) {
+      if (map[x + i - 1][y + j - 1] === 6) {
         walls.push({ x: j, y: i });
       }
     }
   } 
+
+  console.log(walls);
 
   switch(walls.length) {
     case 0: {

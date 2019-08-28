@@ -21,6 +21,8 @@ const drawSystem = {
         image,
         flipX,
         invisible,
+        currentFrame,
+        rotate,
       } = entity.components['D'];
 
       if (invisible) {
@@ -55,7 +57,11 @@ const drawSystem = {
         }
         this.context.drawImage(image, currentFrame * frameWidth, 0, frameWidth, frameHeight, 0, 0, width * SCALE, height * SCALE);
       } else {
-        this.context.drawImage(image, 0, 0, frameWidth, frameHeight, 0, 0, width * SCALE, height * SCALE);
+        if (currentFrame) {
+          this.context.drawImage(image, 16 * currentFrame, 0, 16, 16, 0, 0, width * SCALE, height * SCALE);
+        } else {
+          this.context.drawImage(image, 0, 0, frameWidth, frameHeight, 0, 0, width * SCALE, height * SCALE);
+        }
       }
       this.context.restore();
     });

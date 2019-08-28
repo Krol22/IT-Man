@@ -1,5 +1,5 @@
 const { Entity } = require('../Engine/ecs');
-const generateWal = require('./Wall.helper');
+const generateWall = require('./Wall.helper');
 
 const TILE_SIZE = 96;
 
@@ -89,8 +89,18 @@ const EntitiesToMap = [
       { n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 52, height: 52, image: mapGenerator.assets.password },
     ]);
   },
-];
+  (mapGenerator, x, y) => {
+    console.log(x, y);
+    const wall = generateWall(mapGenerator, x, y);
+    console.log(wall);
 
+    return new Entity([
+      {
+        n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 16, height: 16, image: mapGenerator.assets.wall, currentFrame: 5- wall.type, rotate: wall.rotation
+      },
+    ]);
+  }
+];
 
 
 const Map = function (assets) {
@@ -104,9 +114,9 @@ const Map = function (assets) {
       ['', '', '', '', '', '', '', '', '', '', '', 3, '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', 0, '', 2, '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', 1, '', '', '', 2, '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', 6, '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', 6, 6, 6, '', 1, '', '', '', 2, '', '', '', '', '', '', ''],
+      ['', '', '', '', '', 6, '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 3, '', ''],
       ['', 4, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', 4, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],

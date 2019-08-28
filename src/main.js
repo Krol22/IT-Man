@@ -23,14 +23,6 @@ const menuState = {
   update: () => {},
 }
 
-const fakeMap = [
-  ['', 6, ''],
-  [6, 6, 6],
-  ['', 6, ''],
-];
-
-console.log(generateWall({ map: fakeMap }, 1, 1));
-
 const start = async () => {
   const gsm = new GSM();
   inputManager.init();

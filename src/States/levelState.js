@@ -32,6 +32,7 @@ const level1State = {
     assets.fireEx = await loadAsset('Item_2.png');
     assets.life = await loadAsset('Item_3.png');
     assets.password = await loadAsset('Item_1.png');
+    assets.wall = await loadAsset('Walls.png');
 
     level1State.ecs = new ECS([
       playerSystem,
