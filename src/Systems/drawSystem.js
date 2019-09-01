@@ -34,17 +34,21 @@ const drawSystem = {
       const frameWidth = 16;
       const frameHeight = 16;
 
-      if (!image) {
-        const physicsComponent = entity.components['Ph'];
-        if (physicsComponent) {
-          this.context.save();
-          this.context.translate(physicsComponent.x, physicsComponent.y);
-          this.context.strokeStyle = '#ff0000';
-          this.context.strokeRect(0, 0, physicsComponent.width, physicsComponent.height)
-          this.context.restore();
-        }
-        return;
+      // if (!image) {
+      const physicsComponent = entity.components['Ph'];
+      if (physicsComponent) {
+        this.context.save();
+        this.context.translate(physicsComponent.x, physicsComponent.y);
+        this.context.strokeStyle = '#ff0000';
+        this.context.strokeRect(0, 0, physicsComponent.width, physicsComponent.height)
+        this.context.restore();
       }
+
+      if (!image) { 
+        return; 
+      }
+        // return;
+      // }
 
       this.context.save();
       this.context.translate(x * SCALE, y * SCALE);

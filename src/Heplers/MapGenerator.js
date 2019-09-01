@@ -29,7 +29,7 @@ const generateComputerEntity = (x, y, computerType, asset) => {
 const EntitiesToMap = [ 
   (mapGenerator, x, y) => {
     // PLAYER
-    return new Entity([
+    return [new Entity([
     { n: 'P', state: 'idle', alive: true }, 
       { 
         n: 'D',
@@ -57,37 +57,36 @@ const EntitiesToMap = [
         delayTimer: 0,
       },
       { n: 'Ph', x: x*TILE_SIZE, y: y*TILE_SIZE, vx: 0, vy: 0, ax: 0, ay: 0, width: 96, height: 96 },
-
-    ]);
+    ])];
   },
   (mapGenerator, x, y) => {
     // COMPUTER
-    return generateComputerEntity(x, y, 1, mapGenerator.assets.computer);
+    return [generateComputerEntity(x, y, 1, mapGenerator.assets.computer)];
   },
   (mapGenerator, x ,y) => {
     // COMPUTER_LOCKED
-    return generateComputerEntity(x, y, 2, mapGenerator.assets.computer);
+    return [generateComputerEntity(x, y, 2, mapGenerator.assets.computer)];
   },
   (mapGenerator, x, y) => {
     // PLAYER_LIFE
-    return new Entity([
+    return [new Entity([
       { n: 'I', name: 'Life', type: 'LIFE', floatTimer: 10, floatDirection: -1, timer: 0 },
       { n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 52, height: 52, image: mapGenerator.assets.life },
-    ]);
+    ])];
   },
   (mapGenerator, x, y) => {
     // FIRE_EXT
-    return new Entity([
+    return [new Entity([
       { n: 'I', name: 'Fire extuinguisher', type: 'FIRE_EX', floatTimer: 5, floatDirection: -1, timer: 0 },
       { n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 52, height: 52, image: mapGenerator.assets.fireEx },
-    ]);
+    ])];
   },
   (mapGenerator, x, y) => {
     // PASSWORD
-    return new Entity([
+    return [new Entity([
       { n: 'I', name: 'Password', type: 'PASS', pass: 'SECRET_123', floatTimer: 1, floatDirection: -1, timer: 0 },
       { n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 52, height: 52, image: mapGenerator.assets.password },
-    ]);
+    ])];
   },
   (mapGenerator, x, y) => {
     const wall = generateWall(mapGenerator, x, y);
@@ -95,11 +94,25 @@ const EntitiesToMap = [
       return;
     }
 
-    return new Entity([
+    const wallAsset = new Entity([
       {
-        n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 3 * 96, height: 3 * 96, image: mapGenerator.assets.wall, currentFrame: 5- wall.type, rotate: wall.rotation
+        n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 3 * 96, height: 3 * 96, image: mapGenerator.assets.wall, currentFrame: 5- wall.type, rotate: wall.rotation },{
+        n: 'Ph', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 12, height: 12, vx: 0, vy: 0, ax: 0, ay: 0,
       },
     ]);
+
+    let additionalWalls = [];
+
+    if (wall.walls) {
+      additionalWalls = wall.walls.map(wall => {
+        return new Entity([{
+          n: 'D', x: wall.ox*TILE_SIZE, y: wall.oy*TILE_SIZE, width: 12, height: 12,},{
+          n: 'Ph', x: wall.ox*TILE_SIZE, y: wall.oy*TILE_SIZE, width: 12, height: 12, vx: 0, vy: 0, ax: 0, ay: 0,
+        }]);
+      });
+    }
+
+    return [wallAsset, ...additionalWalls];
   }
 ];
 
@@ -137,7 +150,7 @@ const Map = function (assets) {
 
 Map.prototype.loadMap = function (mapNumber) {
   const mapToLoad = this.mapData[mapNumber];
-  const entities = [];
+  let entities = [];
   
   for (let y = 0; y < this.rows; y++) {
     for (let x = 0; x < this.cols; x++) {
@@ -151,7 +164,9 @@ Map.prototype.loadMap = function (mapNumber) {
       if (typeof entityType !== 'number') {
         continue;
       }
-      entities.push(EntitiesToMap[entityNumber](this, x, y));
+      const result = EntitiesToMap[entityNumber](this, x, y);
+      console.log(result);
+      entities = entities.concat(result);
     }
   }
 

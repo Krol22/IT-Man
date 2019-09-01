@@ -16,17 +16,17 @@ function generateWall (mapGenerator, x, y) {
       }
 
       if (map[y + i - 1][x + j - 1] === 'w') {
-        walls.push({ x: j, y: i });
+        walls.push({ x: j, y: i, ox: x + j - 1, oy: y + i - 1 });
       }
     }
   } 
 
   switch(walls.length) {
     case 0: {
-      return { type: 0 };
+      return { type: 0, walls };
     }
     case 1: {
-      const wall = { type: 1, };
+      const wall = { type: 1, walls };
       const {x, y} = walls[0];
       if (x === 0) { 
         wall.rotation = 0;
@@ -48,7 +48,7 @@ function generateWall (mapGenerator, x, y) {
         };
       }
 
-      const wall = { type: 3 };
+      const wall = { type: 3, walls };
       if (wall2.x === 2) {
         wall.rotation = 0;
       } else if (wall1.x === 2) {
@@ -61,7 +61,7 @@ function generateWall (mapGenerator, x, y) {
       return wall;
     }
     case 3: {
-      const wall = { type: 4 };
+      const wall = { type: 4, walls };
       const [wall1, wall2, wall3] = walls;
       if (wall2.y === wall3.y || wall1.y === wall2.y) { // 1, 3
         wall.rotation = wall1.x === 1 ? 3 : 1; 
@@ -74,6 +74,7 @@ function generateWall (mapGenerator, x, y) {
     case 4: {
       return {
         type: 5,
+        walls,
       };
     }
   }

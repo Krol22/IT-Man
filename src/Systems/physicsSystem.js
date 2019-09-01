@@ -22,8 +22,10 @@ const physicsSystem = {
       physicsComponent.vx += ax;
       physicsComponent.vy += ay;
 
-      drawComponent.x = physicsComponent.x;
-      drawComponent.y = physicsComponent.y;
+      if (drawComponent) {
+        drawComponent.x = physicsComponent.x;
+        drawComponent.y = physicsComponent.y;
+      }
 
       physicsComponent.vx *= FRICTION;
       physicsComponent.vy *= FRICTION;
