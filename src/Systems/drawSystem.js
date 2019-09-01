@@ -25,6 +25,15 @@ const drawSystem = {
         rotate,
       } = entity.components['D'];
 
+      let {
+        offsetX,
+        offsetY,
+      } = entity.components['D'];
+
+
+      offsetY = offsetY ? offsetY : 0;
+      offsetX = offsetX ? offsetX : 0;
+
       if (invisible) {
         return;
       }
@@ -35,15 +44,15 @@ const drawSystem = {
       const frameHeight = 16;
 
       // if (!image) {
-      const physicsComponent = entity.components['Ph'];
-      if (physicsComponent) {
-        this.context.save();
-        this.context.translate(physicsComponent.x, physicsComponent.y);
-        this.context.strokeStyle = '#ff0000';
-        this.context.strokeRect(0, 0, physicsComponent.width, physicsComponent.height)
-        this.context.restore();
-      }
-
+      // const physicsComponent = entity.components['Ph'];
+      // if (physicsComponent) {
+        // this.context.save();
+        // this.context.translate(physicsComponent.x * SCALE, physicsComponent.y * SCALE);
+        // this.context.strokeStyle = '#ff0000';
+        // this.context.strokeRect(0, 0, physicsComponent.width * SCALE, physicsComponent.height * SCALE)
+        // this.context.restore();
+      // }
+// //
       if (!image) { 
         return; 
       }
@@ -51,7 +60,7 @@ const drawSystem = {
       // }
 
       this.context.save();
-      this.context.translate(x * SCALE, y * SCALE);
+      this.context.translate((x - offsetX) * SCALE , (y - offsetY) * SCALE);
 
       if (rotate) {
         this.context.translate(width  * SCALE / 2, height * SCALE / 2);

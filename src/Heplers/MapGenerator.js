@@ -1,5 +1,5 @@
 const { Entity } = require('../Engine/ecs');
-const generateWall = require('./Wall.helper');
+const { generateWall, generatePhEntities } = require('./Wall.helper');
 
 const TILE_SIZE = 96;
 
@@ -7,7 +7,7 @@ const generateComputerEntity = (x, y, computerType, asset) => {
   return new Entity([
       { n: 'Cp', state: 'LOCKED', timer: 0, password: 'SECRET_123' },
       { n: 'D', width: 64, height: 64, image: asset },
-      { 
+      {
         n: 'A',
         currentFrame: 0,
         state: computerType === 1 ? 'BROKEN' : 'LOCKED',
@@ -26,19 +26,19 @@ const generateComputerEntity = (x, y, computerType, asset) => {
     ]);
 };
 
-const EntitiesToMap = [ 
+const EntitiesToMap = [
   (mapGenerator, x, y) => {
     // PLAYER
     return [new Entity([
-    { n: 'P', state: 'idle', alive: true }, 
-      { 
+    { n: 'P', state: 'idle', alive: true },
+      {
         n: 'D',
         width: 96,
         height: 96,
         flipX: false,
         image: mapGenerator.assets.player,
       },
-      { 
+      {
         n: 'A',
         currentFrame: 0,
         state: 'IDLE',
@@ -53,7 +53,7 @@ const EntitiesToMap = [
             time: 10,
           },
           IDLE: 0,
-        },		
+        },
         delayTimer: 0,
       },
       { n: 'Ph', x: x*TILE_SIZE, y: y*TILE_SIZE, vx: 0, vy: 0, ax: 0, ay: 0, width: 96, height: 96 },
@@ -96,23 +96,13 @@ const EntitiesToMap = [
 
     const wallAsset = new Entity([
       {
-        n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 3 * 96, height: 3 * 96, image: mapGenerator.assets.wall, currentFrame: 5- wall.type, rotate: wall.rotation },{
-        n: 'Ph', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 12, height: 12, vx: 0, vy: 0, ax: 0, ay: 0,
+        n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 3 * 96, height: 3 * 96, image: mapGenerator.assets.wall, currentFrame: 5- wall.type, rotate: wall.rotation, offsetX: 128, offsetY: 128 },{
+        n: 'Ph', x: (x)*TILE_SIZE, y: (y)*TILE_SIZE, width: 32, height: 32, vx: 0, vy: 0, ax: 0, ay: 0,
       },
     ]);
 
-    let additionalWalls = [];
-
-    if (wall.walls) {
-      additionalWalls = wall.walls.map(wall => {
-        return new Entity([{
-          n: 'D', x: wall.ox*TILE_SIZE, y: wall.oy*TILE_SIZE, width: 12, height: 12,},{
-          n: 'Ph', x: wall.ox*TILE_SIZE, y: wall.oy*TILE_SIZE, width: 12, height: 12, vx: 0, vy: 0, ax: 0, ay: 0,
-        }]);
-      });
-    }
-
-    return [wallAsset, ...additionalWalls];
+    const wallPhEntities = generatePhEntities(wall, x, y);
+    return [wallAsset, ...wallPhEntities];
   }
 ];
 
@@ -124,23 +114,23 @@ const Map = function (assets) {
 
   this.mapData = [
     [
-      [5, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', 'w', 6, 'w', '', 6, 'w', '', '', '', '', 3, '', '', '', '', '', '', '', ''],
-      ['', '', 'w', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', 'w', '', 2, '', '', '', '', '', 6, 'w', '', '', '', '', '', '', '', ''],
-      ['', '', 6, '', '', '', '', '', '', '', 'w', '', '', '', '', '', '', '', '', ''],
-      ['', '', 'w', '', 'w', 6, 'w', 'w', 6, 'w', 6, '', 2, '', '', '', '', '', '', ''],
-      ['', 0, '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', 3, '', ''],
-      ['', 4, '', '', '', 6, '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', 4, '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', 1, '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', 2, 'w', , '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', 0, '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', 1, '', '', '', '', 'w', 6, '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', '', 2, '', '', '', '', '', '', ''],
+      ['w', '', 5, '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      [6, 'w', '', '', 'w', 6, 'w', '', '', 'w', 6, 'w', '', '', '', '', '', 3, '', ''],
+      ['', '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', 6, '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', 2, '', '', '', '', '', ''],
-      ['', '', '', 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', 3, '', '', '', '', '', '', '', '', '', 2, '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', '', '', '', '', 2, '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 5],
@@ -151,7 +141,7 @@ const Map = function (assets) {
 Map.prototype.loadMap = function (mapNumber) {
   const mapToLoad = this.mapData[mapNumber];
   let entities = [];
-  
+
   for (let y = 0; y < this.rows; y++) {
     for (let x = 0; x < this.cols; x++) {
       const entityType = mapToLoad[y][x];
@@ -165,7 +155,6 @@ Map.prototype.loadMap = function (mapNumber) {
         continue;
       }
       const result = EntitiesToMap[entityNumber](this, x, y);
-      console.log(result);
       entities = entities.concat(result);
     }
   }

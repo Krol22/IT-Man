@@ -9,7 +9,7 @@ const Camera = function(x, y, w, h, ctx) {
 };
 
 Camera.prototype.update = function () {
-  this.ctx.clearRect(this.x * SCALE, this.y * SCALE, 800 + this.x * SCALE, 600 + this.y * SCALE);
+  this.ctx.clearRect(-10000, -10000, 20000, 20000);
   this.ctx.fillStyle = '#fff';
   this.ctx.fillRect(0, 0, 800, 600);
 
