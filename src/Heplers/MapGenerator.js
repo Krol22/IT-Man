@@ -90,13 +90,14 @@ const EntitiesToMap = [
     ]);
   },
   (mapGenerator, x, y) => {
-    console.log(x, y);
     const wall = generateWall(mapGenerator, x, y);
-    console.log(wall);
+    if (!wall) {
+      return;
+    }
 
     return new Entity([
       {
-        n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 16, height: 16, image: mapGenerator.assets.wall, currentFrame: 5- wall.type, rotate: wall.rotation
+        n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 3 * 96, height: 3 * 96, image: mapGenerator.assets.wall, currentFrame: 5- wall.type, rotate: wall.rotation
       },
     ]);
   }
@@ -111,15 +112,15 @@ const Map = function (assets) {
   this.mapData = [
     [
       [5, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', 3, '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', 0, '', 2, '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', 6, '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', 6, 6, 6, '', 1, '', '', '', 2, '', '', '', '', '', '', ''],
-      ['', '', '', '', '', 6, '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 3, '', ''],
-      ['', 4, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', 4, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', 'w', 6, 'w', '', 6, 'w', '', '', '', '', 3, '', '', '', '', '', '', '', ''],
+      ['', '', 'w', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', 'w', '', 2, '', '', '', '', '', 6, 'w', '', '', '', '', '', '', '', ''],
+      ['', '', 6, '', '', '', '', '', '', '', 'w', '', '', '', '', '', '', '', '', ''],
+      ['', '', 'w', '', 'w', 6, 'w', 'w', 6, 'w', 6, '', 2, '', '', '', '', '', '', ''],
+      ['', 0, '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', 3, '', ''],
+      ['', 4, '', '', '', 6, '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      ['', 4, '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', 1, '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', '', '', '', '', '', '', 2, '', '', '', '', '', ''],
@@ -138,14 +139,19 @@ Map.prototype.loadMap = function (mapNumber) {
   const mapToLoad = this.mapData[mapNumber];
   const entities = [];
   
-  for (let i = 0; i < this.rows; i++) {
-    for (let j = 0; j < this.cols; j++) {
-      const entityType = mapToLoad[j][i];
+  for (let y = 0; y < this.rows; y++) {
+    for (let x = 0; x < this.cols; x++) {
+      const entityType = mapToLoad[y][x];
       if (entityType === '') {
         continue;
       }
 
-      entities.push(EntitiesToMap[Number(entityType)](this, i, j));
+      const entityNumber = Number(entityType);
+
+      if (typeof entityType !== 'number') {
+        continue;
+      }
+      entities.push(EntitiesToMap[entityNumber](this, x, y));
     }
   }
 

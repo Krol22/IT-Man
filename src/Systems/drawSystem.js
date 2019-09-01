@@ -49,6 +49,13 @@ const drawSystem = {
       this.context.save();
       this.context.translate(x * SCALE, y * SCALE);
 
+      if (rotate) {
+        this.context.translate(width  * SCALE / 2, height * SCALE / 2);
+        this.context.rotate(Math.PI / 2 * rotate);
+        this.context.translate(-width  * SCALE / 2, -height * SCALE / 2);
+
+      }
+
       if (animationComponent) {
         const { currentFrame } = animationComponent;
         if (flipX) {
