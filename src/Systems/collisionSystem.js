@@ -43,11 +43,21 @@ const handlePlayerObjectCollision = (player, object) => {
       default:
     }
 
-
     return true;
   }
 
   return false;
+}
+
+const handlePlayerBoundariesCollision = (player) => {
+  if (player.x < 0) {
+    player.x = 0;
+  }
+
+  if (player.y < 0) {
+    player.y = 0;
+  }
+
 }
 
 const collisionSystem = {
@@ -62,6 +72,7 @@ const collisionSystem = {
   },
   update: delta => {
     this.systemEntities.forEach(entity => {
+      handlePlayerBoundariesCollision(this.playerEntity.components['Ph']);
       handlePlayerObjectCollision(this.playerEntity.components['Ph'], entity.components['Ph']); 
     });
   }

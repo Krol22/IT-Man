@@ -1,64 +1,14 @@
 const { Entity } = require('../Engine/ecs');
+const { TILE_SIZE } = require('../const');
 const { generateWall, generatePhEntities } = require('./Wall.helper');
 
-const TILE_SIZE = 96;
+const Level1Map = require('./Map/Level1');
 
-const generateComputerEntity = (x, y, computerType, asset) => {
-  return new Entity([
-      { n: 'Cp', state: 'LOCKED', timer: 0, password: 'SECRET_123' },
-      { n: 'D', width: 64, height: 64, image: asset },
-      {
-        n: 'A',
-        currentFrame: 0,
-        state: computerType === 1 ? 'BROKEN' : 'LOCKED',
-        frames: 3,
-        animations: {
-          LOCKED: 2,
-          BROKEN: {
-            frames: [0, 1],
-            time: 5
-          },
-          FIXED: 1,
-        },
-        delayTimer: 0,
-      },
-      { n: 'Ph', x: x * TILE_SIZE, y: y * TILE_SIZE, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
-    ]);
-};
+const generatePlayerEntity = require('./Map/PlayerGenerator');
+const generateComputerEntity = require('./Map/ComputerGenerator');
 
 const EntitiesToMap = [
-  (mapGenerator, x, y) => {
-    // PLAYER
-    return [new Entity([
-    { n: 'P', state: 'idle', alive: true },
-      {
-        n: 'D',
-        width: 96,
-        height: 96,
-        flipX: false,
-        image: mapGenerator.assets.player,
-      },
-      {
-        n: 'A',
-        currentFrame: 0,
-        state: 'IDLE',
-        frames: 5,
-        animations: {
-          BACK_UP: {
-            frames: [3, 4],
-            time: 10,
-          },
-          WALK: {
-            frames: [1, 2],
-            time: 10,
-          },
-          IDLE: 0,
-        },
-        delayTimer: 0,
-      },
-      { n: 'Ph', x: x*TILE_SIZE, y: y*TILE_SIZE, vx: 0, vy: 0, ax: 0, ay: 0, width: 96, height: 96 },
-    ])];
-  },
+  generatePlayerEntity,
   (mapGenerator, x, y) => {
     // COMPUTER
     return [generateComputerEntity(x, y, 1, mapGenerator.assets.computer)];
@@ -112,30 +62,7 @@ const Map = function (assets) {
   this.cols = 20;
   this.assets = assets;
 
-  this.mapData = [
-    [
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', 'w', 6, 'w', '', 6, 'w', '', '', '', '', 3, '', '', '', '', '', '', '', ''],
-      ['', 2, 'w', , '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', 0, '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', 1, '', '', '', '', 'w', 6, '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', 2, '', '', '', '', '', '', ''],
-      ['w', '', 5, '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      [6, 'w', '', '', 'w', 6, 'w', '', '', 'w', 6, 'w', '', '', '', '', '', 3, '', ''],
-      ['', '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', 6, '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', 'w', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', 2, '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', 2, '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 5],
-    ]
-  ]
+  this.mapData = Level1Map;
 }
 
 Map.prototype.loadMap = function (mapNumber) {

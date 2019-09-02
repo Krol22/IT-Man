@@ -49,7 +49,7 @@ const level1State = {
     const entities = mapGenerator.loadMap(0);
 
     const playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
-    window.gameCamera.followPoint(playerEntity.components['D']);
+    window.gameCamera.followPoint(playerEntity.components['Ph']);
 
     drawSystem.init(entities, window.gameContext);
     computerSystem.init(entities);
