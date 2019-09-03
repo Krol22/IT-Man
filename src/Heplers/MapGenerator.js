@@ -46,8 +46,8 @@ const EntitiesToMap = [
 
     const wallAsset = new Entity([
       {
-        n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 3 * 96, height: 3 * 96, image: mapGenerator.assets.wall, currentFrame: 5 - wall.type, rotate: wall.rotation, offsetX: 128, offsetY: 128 },{
-        n: 'Ph', x: (x)*TILE_SIZE, y: (y)*TILE_SIZE, width: 32, height: 32, vx: 0, vy: 0, ax: 0, ay: 0,
+        n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 3 * 96, height: 3 * 96, image: mapGenerator.assets.wall, currentFrame: 5 - wall.type, rotate: wall.rotation, offsetX: 112, offsetY: 112 },{
+        n: 'Ph', x: (x)*TILE_SIZE, y: (y)*TILE_SIZE, width: 64, height: 64, vx: 0, vy: 0, ax: 0, ay: 0,
       },
     ]);
 

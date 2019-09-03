@@ -1,4 +1,5 @@
 const { Entity } = require('../Engine/ecs');
+const { TILE_SIZE } = require('../const');
 
 function generateWall (mapGenerator, x, y) {
   const { mapData } = mapGenerator;
@@ -82,8 +83,6 @@ function generateWall (mapGenerator, x, y) {
   }
 }
 
-const TILE_SIZE = 96;
-
 function generatePhEntities (wall, x, y) {
   const { walls } = wall; 
 
@@ -100,11 +99,11 @@ function generatePhEntities (wall, x, y) {
   return [
     new Entity([
       {n: 'D', x: wall.ox + 1 *TILE_SIZE, y: wall.oy*TILE_SIZE, width: 12, height: 12,},
-      { n: 'Ph', x: (minX.ox) * TILE_SIZE - fixX - WALL_SIZE, y : (y + 1) * TILE_SIZE - WALL_SIZE, width: (maxX.x - minX.x) * 128 + 32, height: 32, vx: 0, vy: 0, ax: 0, ay: 0 }
+      { n: 'Ph', x: (minX.ox) * TILE_SIZE - fixX - WALL_SIZE, y : (y + 1) * TILE_SIZE - WALL_SIZE, width: (maxX.x - minX.x) * 128 + 64, height: 64, vx: 0, vy: 0, ax: 0, ay: 0 }
     ]),
     new Entity([
       {n: 'D', x: wall.ox + 1 *TILE_SIZE, y: wall.oy*TILE_SIZE, width: 12, height: 12, offsetX: 20},
-      { n: 'Ph', x: (x + 1) * TILE_SIZE - WALL_SIZE, y : minY.oy * TILE_SIZE - fixY - WALL_SIZE, width: 32, height: (maxY.y - minY.y) * 128 + 32, vx: 0, vy: 0, ax: 0, ay: 0 }
+      { n: 'Ph', x: (x + 1) * TILE_SIZE - WALL_SIZE, y : minY.oy * TILE_SIZE - fixY - WALL_SIZE, width: 64, height: (maxY.y - minY.y) * 128 + 64, vx: 0, vy: 0, ax: 0, ay: 0 }
     ]),
   ]
 }

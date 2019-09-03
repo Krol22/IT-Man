@@ -10,6 +10,7 @@ module.exports = function generatePlayerEntity(mapGenerator, x, y) {
       height: 96,
       flipX: false,
       image: mapGenerator.assets.player,
+      offsetX: 8,
     },
     {
       n: 'A',
@@ -29,6 +30,6 @@ module.exports = function generatePlayerEntity(mapGenerator, x, y) {
       },
       delayTimer: 0,
     },
-    { n: 'Ph', x: x*TILE_SIZE, y: y*TILE_SIZE, vx: 0, vy: 0, ax: 0, ay: 0, width: 96, height: 96 },
+    { n: 'Ph', x: x*TILE_SIZE, y: y*TILE_SIZE, vx: 0, vy: 0, ax: 0, ay: 0, width: 80, height: 96 },
   ])];
 }

@@ -52,7 +52,7 @@ const drawSystem = {
         // this.context.strokeRect(0, 0, physicsComponent.width * SCALE, physicsComponent.height * SCALE)
         // this.context.restore();
       // }
-// //
+// // //
       if (!image) { 
         return; 
       }
