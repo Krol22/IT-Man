@@ -9,7 +9,7 @@ const Camera = function(x, y, w, h, ctx) {
 
 Camera.prototype.update = function () {
   this.ctx.clearRect(-10000, -10000, 20000, 20000);
-  this.ctx.fillStyle = '#000';
+  this.ctx.fillStyle = '#111';
   this.ctx.fillRect(-10000, -10000, 20000, 20000);
 
   if (this.followPoint) {

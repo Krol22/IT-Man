@@ -10,12 +10,12 @@ module.exports = function BackingUpModal(state) {
   return html`
     <style>
       .buModal {
-        top: ${175 + bumY - window.gameCamera.y * SCALE}px;
-        left: ${100 + bumX - window.gameCamera.x * SCALE}px;
+        top: ${50 + bumY - window.gameCamera.y * SCALE}px;
+        left: ${-10 + bumX - window.gameCamera.x * SCALE}px;
       }
     </style>
     <div class="buModal">
-      <h3 class="title">BACKING UP</h3>
+      <span class="title">BACKING UP</span>
       <div class="perc">${buTime}%</div>
     </div>
   `

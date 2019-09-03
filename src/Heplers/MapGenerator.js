@@ -53,6 +53,13 @@ const EntitiesToMap = [
 
     const wallPhEntities = generatePhEntities(wall, x, y);
     return [wallAsset, ...wallPhEntities];
+  },
+  (mapGenerator, x, y) => {
+    return [
+      new Entity([
+        { n: 'D', x: x* TILE_SIZE, y: y*TILE_SIZE, width: 102, height: 102, image: mapGenerator.assets.backgroundWall, offsetX: 20, offsetY: 20},
+      ]),
+    ];
   }
 ];
 
