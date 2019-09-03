@@ -95,14 +95,16 @@ function generatePhEntities (wall, x, y) {
   const fixX = minX.x === 0 ? 32 : 0;
   const fixY = minY.y === 0 ? 32 : 0;
 
+  const WALL_SIZE = 96;
+
   return [
     new Entity([
       {n: 'D', x: wall.ox + 1 *TILE_SIZE, y: wall.oy*TILE_SIZE, width: 12, height: 12,},
-      { n: 'Ph', x: (minX.ox) * TILE_SIZE - fixX - 96, y : (y + 1) * TILE_SIZE - 96, width: (maxX.x - minX.x) * 128 + 32, height: 32, vx: 0, vy: 0, ax: 0, ay: 0 }
+      { n: 'Ph', x: (minX.ox) * TILE_SIZE - fixX - WALL_SIZE, y : (y + 1) * TILE_SIZE - WALL_SIZE, width: (maxX.x - minX.x) * 128 + 32, height: 32, vx: 0, vy: 0, ax: 0, ay: 0 }
     ]),
     new Entity([
       {n: 'D', x: wall.ox + 1 *TILE_SIZE, y: wall.oy*TILE_SIZE, width: 12, height: 12, offsetX: 20},
-      { n: 'Ph', x: (x + 1) * TILE_SIZE - 96, y : minY.oy * TILE_SIZE - fixY - 96, width: 32, height: (maxY.y - minY.y) * 128 + 32, vx: 0, vy: 0, ax: 0, ay: 0 }
+      { n: 'Ph', x: (x + 1) * TILE_SIZE - WALL_SIZE, y : minY.oy * TILE_SIZE - fixY - WALL_SIZE, width: 32, height: (maxY.y - minY.y) * 128 + 32, vx: 0, vy: 0, ax: 0, ay: 0 }
     ]),
   ]
 }
