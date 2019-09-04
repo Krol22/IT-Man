@@ -1,4 +1,4 @@
-const { ECS } = require('../Engine/ecs');
+const { ECS, Entity } = require('../Engine/ecs');
 
 const playerSystem = require('../Systems/playerSystem');
 const physicsSystem = require('../Systems/physicsSystem');
@@ -7,7 +7,9 @@ const animationSystem = require('../Systems/animationSystem');
 const collisionSystem = require('../Systems/collisionSystem');
 const computerSystem = require('../Systems/computerSystem');
 const itemSystem = require('../Systems/itemSystem');
+const spawnSystem = require('../Systems/spawnerSystem');
 
+const generateComputerEntity = require('../Heplers/Map/ComputerGenerator');
 const MapGenerator = require('../Heplers/MapGenerator');
 
 const loadAsset = imageSrc => {
@@ -45,11 +47,35 @@ const level1State = {
       collisionSystem,
       computerSystem,
       itemSystem,
+      spawnSystem,
     ]);
 
     const mapGenerator = await new MapGenerator(assets);
 
     const entities = mapGenerator.loadMap(0);
+    entities.push(
+      new Entity([
+        { n: 'S' },
+        { n: 'Cp', state: 'LOCKED', timer: 0, password: 'SECRET_123' },
+        { n: 'D', width: 64, height: 64, image: assets.computer },
+        {
+          n: 'A',
+          currentFrame: 0,
+          state: 'LOCKED',
+          frames: 3,
+          animations: {
+            LOCKED: 2,
+            BROKEN: {
+              frames: [0, 1],
+              time: 5
+            },
+            FIXED: 1,
+          },
+          delayTimer: 0,
+        },
+        { n: 'Ph', x: 100, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64, skipCollisionCheck: true },
+      ]),
+    );
 
     const playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
     window.gameCamera.followPoint(playerEntity.components['Ph']);
@@ -61,6 +87,7 @@ const level1State = {
     playerSystem.init(entities);
     physicsSystem.init(entities);
     animationSystem.init(entities);
+    spawnSystem.init(entities);
   },
   update: (delta) => {
     level1State.ecs.update(delta);

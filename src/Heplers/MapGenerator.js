@@ -59,6 +59,7 @@ const EntitiesToMap = [
     return [
       new Entity([
         { n: 'D', x: x* TILE_SIZE, y: y*TILE_SIZE, width: 102, height: 102, image: mapGenerator.assets.backgroundWall, offsetX: 20, offsetY: 20},
+        { n: 'Ph', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 102, height: 102, vx: 0, vy: 0, ax: 0, ay: 0},
       ]),
     ];
   },
@@ -73,7 +74,7 @@ const EntitiesToMap = [
 
 const Map = function (assets) {
   this.rows = 37;
-  this.cols = 36;
+  this.cols = 33;
   this.assets = assets;
 
   this.mapData = Level1Map;

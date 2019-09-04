@@ -77,14 +77,6 @@ const handleComputerInteraction = entity => {
   }
 };
 
-const spawnRandomComputer = entities => {
-  const computerToFix = entities.find(entity => {
-    entity.components['Cp'].state === 'BROKEN' || entity.components['Cp'].state === 'LOCKED'
-  });
-
-  if (!computerToFix) {}
-}
-
 const computerSystem = {
   init: (entities) => {
     this.playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
