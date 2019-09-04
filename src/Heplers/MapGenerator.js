@@ -6,6 +6,7 @@ const Level1Map = require('./Map/Level1');
 
 const generatePlayerEntity = require('./Map/PlayerGenerator');
 const generateComputerEntity = require('./Map/ComputerGenerator');
+const generateEnemyEntity = require('./Map/EnemyGenerator');
 
 const EntitiesToMap = [
   generatePlayerEntity,
@@ -60,6 +61,12 @@ const EntitiesToMap = [
         { n: 'D', x: x* TILE_SIZE, y: y*TILE_SIZE, width: 102, height: 102, image: mapGenerator.assets.backgroundWall, offsetX: 20, offsetY: 20},
       ]),
     ];
+  },
+  (mapGenerator, x, y) => {
+    return [generateEnemyEntity(x, y, 1, mapGenerator.assets.enemy1)];
+  },
+  (mapGenerator, x, y) => {
+    return [generateEnemyEntity(x, y, 2, mapGenerator.assets.enemy2)];
   }
 ];
 
