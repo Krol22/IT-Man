@@ -58,7 +58,6 @@ const handleComputerInteraction = entity => {
     return;
   }
 
-
   switch(cpComponent.state) {
     case 'BROKEN': 
       cpComponent.backupTimer++;

@@ -31,6 +31,17 @@ module.exports = function reducer(state = init, action, args) {
         lifes: state.lifes + 1,
       }
     }
+    case 'SHOW_INDICATOR': {
+      const [indicatorX, indicatorY, playerX, playerY] = args;
+      return {
+        ...state,
+        indicatorX,
+        indicatorY,
+        playerX,
+        playerY,
+        displayIndicator: true,
+      };
+    }
     // show back up modal
     case 'SHOW_BU_MODAL': {
       const [buTime, bumX, bumY] = args;
