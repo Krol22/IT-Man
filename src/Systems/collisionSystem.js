@@ -71,8 +71,12 @@ const collisionSystem = {
     );
   },
   update: delta => {
+    handlePlayerBoundariesCollision(this.playerEntity.components['Ph']);
     this.systemEntities.forEach(entity => {
-      handlePlayerBoundariesCollision(this.playerEntity.components['Ph']);
+      if (entity.components['Ph'].skipCollisionCheck) {
+        return;
+      }
+
       handlePlayerObjectCollision(this.playerEntity.components['Ph'], entity.components['Ph']); 
     });
   }

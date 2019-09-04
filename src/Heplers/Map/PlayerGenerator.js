@@ -11,6 +11,7 @@ module.exports = function generatePlayerEntity(mapGenerator, x, y) {
       flipX: false,
       image: mapGenerator.assets.player,
       offsetX: 8,
+      priority: 2,
     },
     {
       n: 'A',

@@ -43,6 +43,49 @@ function isNear(playerEntity, computerPhComponent) {
   }
 }
 
+const handleComputerInteraction = entity => {
+  const phComponent = entity.components['Ph'];
+  const cpComponent = entity.components['Cp'];
+  const aComponent = entity.components['A'];
+
+  if (this.playerEntity.components['P'].state !== 'BACK_UP') {
+    cpComponent.backupTimer = 0;
+    window.dispatch('HIDE_BU_MODAL');
+    return;
+  }
+
+  if (!isNear(this.playerEntity, phComponent)) {
+    return;
+  }
+
+
+  switch(cpComponent.state) {
+    case 'BROKEN': 
+      cpComponent.backupTimer++;
+      window.dispatch('SHOW_BU_MODAL', cpComponent.backupTimer, phComponent.x * SCALE, phComponent.y * SCALE);
+      if (cpComponent.backupTimer > 40) {
+        cpComponent.state = 'FIXED';
+        aComponent.state = 'FIXED';
+        cpComponent.backupTimer = 0;
+        window.dispatch('ADD_SCORE', 100);
+        window.dispatch('HIDE_BU_MODAL');
+      }
+      break;
+    case 'LOCKED':
+      cpComponent.state = 'BROKEN';
+      aComponent.state = 'BROKEN';
+      break;
+  }
+};
+
+const spawnRandomComputer = entities => {
+  const computerToFix = entities.find(entity => {
+    entity.components['Cp'].state === 'BROKEN' || entity.components['Cp'].state === 'LOCKED'
+  });
+
+  if (!computerToFix) {}
+}
+
 const computerSystem = {
   init: (entities) => {
     this.playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
@@ -50,38 +93,7 @@ const computerSystem = {
   },
   update: () => {
     this.systemEntities.forEach(entity => {
-      const phComponent = entity.components['Ph'];
-      const cpComponent = entity.components['Cp'];
-      const aComponent = entity.components['A'];
-
-      if (this.playerEntity.components['P'].state !== 'BACK_UP') {
-        cpComponent.backupTimer = 0;
-        window.dispatch('HIDE_BU_MODAL');
-        return;
-      }
-
-      if (!isNear(this.playerEntity, phComponent)) {
-        return;
-      }
-
-
-      switch(cpComponent.state) {
-        case 'BROKEN': 
-          cpComponent.backupTimer++;
-          window.dispatch('SHOW_BU_MODAL', cpComponent.backupTimer, phComponent.x * SCALE, phComponent.y * SCALE);
-          if (cpComponent.backupTimer > 40) {
-            cpComponent.state = 'FIXED';
-            aComponent.state = 'FIXED';
-            cpComponent.backupTimer = 0;
-            window.dispatch('ADD_SCORE', 100);
-            window.dispatch('HIDE_BU_MODAL');
-          }
-          break;
-        case 'LOCKED':
-          cpComponent.state = 'BROKEN';
-          aComponent.state = 'BROKEN';
-          break;
-      }
+      handleComputerInteraction(entity);
     });
   },
 };

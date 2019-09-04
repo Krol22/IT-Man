@@ -20,6 +20,6 @@ module.exports = function generateComputerEntity(x, y, computerType, asset) {
         },
         delayTimer: 0,
       },
-      { n: 'Ph', x: x * TILE_SIZE, y: y * TILE_SIZE, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64 },
+      { n: 'Ph', x: x * TILE_SIZE, y: y * TILE_SIZE, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64, skipCollisionCheck: true },
     ]);
 }

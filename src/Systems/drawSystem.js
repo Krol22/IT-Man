@@ -6,7 +6,15 @@ const { SCALE } = require('../const');
 
 const drawSystem = {
   init: (entities, context) => {
-    this.systemEntities = entities.filter(entity => entity.componentTypes.includes('D'));
+    this.systemEntities = entities
+      .filter(entity => entity.componentTypes.includes('D'))
+      .sort((entityA, entityB) => {
+        const priorityA = entityA.components['D'].priority ? entityA.components['D'].priority : 0;
+        const priorityB = entityB.components['D'].priority ? entityB.components['D'].priority : 0;
+
+        return priorityA - priorityB;
+      });
+
     this.context = context;
     this.context.webkitImageSmoothingEnabled = false;
     this.context.imageSmoothingEnabled = false;
