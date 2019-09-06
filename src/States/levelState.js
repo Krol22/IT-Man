@@ -56,12 +56,12 @@ const level1State = {
     entities.push(
       new Entity([
         { n: 'S' },
-        { n: 'Cp', state: 'LOCKED', timer: 0, password: 'SECRET_123' },
+        { n: 'Cp', state: 'FIXED', timer: 0 },
         { n: 'D', width: 64, height: 64, image: assets.computer },
         {
           n: 'A',
           currentFrame: 0,
-          state: 'LOCKED',
+          state: 'FIXED',
           frames: 3,
           animations: {
             LOCKED: 2,

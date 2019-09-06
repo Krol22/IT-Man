@@ -4,8 +4,8 @@ const { TILE_SIZE } = require('../const');
  S - spawnerSystem
 */
 
-const maxX = 33 * TILE_SIZE;
-const maxY = 37 * TILE_SIZE;
+const maxX = 32 * TILE_SIZE;
+const maxY = 36 * TILE_SIZE;
 
 const collides = (objA, objB) => {
   return(objA.x < objB.x + objB.width &&
@@ -58,11 +58,12 @@ const spawnSystem = {
       cpComponent.state = state;
       aComponent.state = state;
 
-
       const { x, y } = getAvailableRandomPosition(this.phEntities, phComponent.width, phComponent.height);
 
       phComponent.x = x;
       phComponent.y = y;
+
+      window.dispatch('SET_INDICATOR', x, y);
     }
   },
 };

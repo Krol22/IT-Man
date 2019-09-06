@@ -11,36 +11,19 @@ function collides (player, object) {
 
 function isNear(playerEntity, computerPhComponent) {
   const { x: px, y: py, width: pw, height: ph } = playerEntity.components['Ph'];
-  const { flipX } = playerEntity.components['D'];
-  let playerCenterY = py + ph / 2;
-
   const { x: cx, y: cy, width: cw, height: ch } = computerPhComponent;
 
-  if (!flipX) { // player faces left
-    return collides({
-      x: px + pw + 10,
-      y: playerCenterY, 
-      width: 10,
-      height: 10,
-    }, {
-      x: cx,
-      y: cy,
-      width: cw,
-      height: ch,
-    }); 
-  } else { // player faces right
-    return collides({
-      x: px - 10,
-      y: playerCenterY, 
-      width: 10,
-      height: 10,
-    }, {
-      x: cx,
-      y: cy,
-      width: cw,
-      height: ch,
-    }); 
-  }
+  return collides({
+    x: px,
+    y: py, 
+    width: pw,
+    height: ph,
+  }, {
+    x: cx,
+    y: cy,
+    width: cw,
+    height: ch,
+  }); 
 }
 
 const handleComputerInteraction = entity => {
@@ -48,15 +31,19 @@ const handleComputerInteraction = entity => {
   const cpComponent = entity.components['Cp'];
   const aComponent = entity.components['A'];
 
+  if (!isNear(this.playerEntity, phComponent)) {
+    window.dispatch('SHOW_INDICATOR');
+    return;
+  }
+
+  window.dispatch('HIDE_INDICATOR');
+
   if (this.playerEntity.components['P'].state !== 'BACK_UP') {
     cpComponent.backupTimer = 0;
     window.dispatch('HIDE_BU_MODAL');
     return;
   }
 
-  if (!isNear(this.playerEntity, phComponent)) {
-    return;
-  }
 
   switch(cpComponent.state) {
     case 'BROKEN': 
@@ -68,6 +55,7 @@ const handleComputerInteraction = entity => {
         cpComponent.backupTimer = 0;
         window.dispatch('ADD_SCORE', 100);
         window.dispatch('HIDE_BU_MODAL');
+        this.playerEntity.components['P'].timer = this.playerEntity.components['P'].timer + 600;
       }
       break;
     case 'LOCKED':
@@ -80,12 +68,10 @@ const handleComputerInteraction = entity => {
 const computerSystem = {
   init: (entities) => {
     this.playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
-    this.systemEntities = entities.filter(entity => entity.componentTypes.includes('Cp'));
+    this.computerEntity = entities.filter(entity => entity.componentTypes.includes('Cp'))[0];
   },
   update: () => {
-    this.systemEntities.forEach(entity => {
-      handleComputerInteraction(entity);
-    });
+    handleComputerInteraction(this.computerEntity);
   },
 };
 

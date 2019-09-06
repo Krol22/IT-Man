@@ -13,21 +13,29 @@ module.exports = function ComputerIndicator(state) {
     return html``;
   }
 
-  const posX = x * SCALE;
-  const posY = y * SCALE;
+  const x1 = x;
+  const y1 = y;
+  const x2 = indicatorX - 800 + 32;
+  const y2 = indicatorY - 600 + 32;
 
-  console.log(x.toFixed(2), y.toFixed(2));
+  const D = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  const xi = x1 + 50/D * (x2 - x1);
+  const yi = y1 + 50/D * (y2 - y1);
 
   return html`
     <style>
       .indicator {
         z-index: 5;
         display: inline-block;
+        width: 5px;
+        height: 5px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #dd00aa;
         position: absolute;
-        border: 1px solid red;
-        transform: translate(${posX}px, ${posY}px);
+        transform: translate(${(xi - x) + 400}px, ${(yi - y) + 400}px);
       }
     </style>
-    <div class='indicator'>!</div>
+    <div class='indicator'>C</div>
   `
 }

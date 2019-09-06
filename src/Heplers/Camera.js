@@ -28,14 +28,6 @@ Camera.prototype.moveTo = function(x, y) {
   let translateX = (this.x - cX) * SCALE;
   let translateY = (this.y - cY) * SCALE;
 
-  if (cX < 0) {
-    translateX = 0;
-  }
-
-  if (cY < 0) {
-    translateY = 0;
-  }
-
   this.ctx.translate(translateX, translateY);
 
   this.x = cX;

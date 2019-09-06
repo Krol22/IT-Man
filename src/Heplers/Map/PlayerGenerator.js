@@ -3,7 +3,7 @@ const { TILE_SIZE } = require('../../const');
 
 module.exports = function generatePlayerEntity(mapGenerator, x, y) {
   return [new Entity([
-  { n: 'P', state: 'idle', alive: true },
+  { n: 'P', state: 'idle', alive: true, timer: 1500 },
     {
       n: 'D',
       width: 96,

@@ -82,6 +82,12 @@ const playerSystem = {
       if (playerComponent.state === 'BACK_UP') {
         animationComponent.state = 'BACK_UP';
       }
+
+      playerComponent.timer--;
+      window.dispatch('UPDATE_TIME', playerComponent.timer);
+      if (playerComponent.timer < 0) {
+        playerComponent.alive = false;
+      }
     });
   }
 };
