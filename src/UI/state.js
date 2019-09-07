@@ -4,6 +4,7 @@ const init = {
   lifes: 3,
   bumX: 100,
   bumY: 100,
+  displayPassIndicator: false,
 };
 
 module.exports = function reducer(state = init, action, args) {

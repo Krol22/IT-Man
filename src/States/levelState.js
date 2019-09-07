@@ -79,7 +79,26 @@ const level1State = {
       new Entity([
         { n: 'S' },
         { n: 'I', name: 'Password', type: 'PASS', pass: 'SECRET_123', floatTimer: 1, floatDirection: -1, timer: 0 },
-        { n: 'D', x: 100, y: 100, width: 52, height: 52, invisible: true, image: mapGenerator.assets.password },
+        { n: 'D', x: 100, y: 100, width: 52, height: 52, invisible: true, image: assets.password },
+      ]),
+      new Entity([
+        { n: 'S' },
+        { n: 'E', type: 1, bh: 'RANDOM', },
+        {
+          n: 'A',
+          currentFrame: 0,
+          state: 'WALK',
+          frames: 3,
+          animations: {
+            WALK: {
+              frames: [0, 1, 2],
+              time: 20 
+            },
+          },
+          delayTimer: 0,
+        },
+        { n: 'D', x: -100, y: -100, width: 96, height: 96, image: assets.enemy2 },
+        { n: 'Ph', x: 655, y: 1500, vx: 0, vy: 0, ax: 0, ay: 1, width: 96, height: 96, skipCollisionCheck: true },
       ]),
     );
 
