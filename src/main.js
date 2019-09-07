@@ -17,6 +17,29 @@ const camera = new Camera(0, 0, 800, 600, context);
 window.gameContext = context;
 window.gameCamera = camera;
 
+const resize = () => {
+  const containerHeigth = window.innerHeight;
+  const containerWidth = window.innerWidth;
+
+  console.log(containerWidth);
+
+  const gameHeight = 600;
+  const gameWidth = 810;
+
+  if (containerWidth > gameWidth) {
+    const scale = containerWidth / gameWidth
+    canvas.style.transform = `scale(${scale})`;
+    canvas.style.transformOrigin = 'top left';
+  } else if (containerHeigth > gameHeight) {
+    const scale = containerHeigth / gameHeight
+    canvas.style.transform = `scale(${scale})`;
+    canvas.style.transformOrigin = 'top left';
+  }
+}
+
+window.addEventListener('resize', resize);
+resize();
+
 const start = async () => {
   window.gsm = new GSM();
   inputManager.init();

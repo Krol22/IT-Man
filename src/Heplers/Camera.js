@@ -29,8 +29,8 @@ Camera.prototype.setFollowPoint = function (component) {
 }
 
 Camera.prototype.moveTo = function(x, y) {
-  const cX = x - this.w + 64;
-  const cY = y - this.h + 64;
+  const cX = (x - this.w + 64);
+  const cY = (y - this.h + 64);
 
   let translateX = (this.x - cX) * SCALE;
   let translateY = (this.y - cY) * SCALE;
