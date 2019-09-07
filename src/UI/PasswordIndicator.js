@@ -13,14 +13,20 @@ module.exports = function ComputerIndicator(state) {
     return html``;
   }
 
+  const gameCanvas = document.querySelector('#game').getBoundingClientRect();
+  const currentWidth = gameCanvas.width;
+  const currentHeigth = gameCanvas.height;
+
+  const scale = currentWidth / 800;
+
   const x1 = x;
   const y1 = y;
-  const x2 = passIndicatorX - 800 + 32;
-  const y2 = passIndicatorY - 600 + 32;
+  const x2 = passIndicatorX - 800;
+  const y2 = passIndicatorY - 600;
 
   const D = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-  const xi = x1 + 50/D * (x2 - x1);
-  const yi = y1 + 50/D * (y2 - y1);
+  const xi = x1 + 50 * scale /D * (x2 - x1);
+  const yi = y1 + 50 * scale /D * (y2 - y1);
 
   return html`
     <style>
@@ -33,7 +39,7 @@ module.exports = function ComputerIndicator(state) {
         font-weight: 700;
         color: #00dd00;
         position: absolute;
-        transform: translate(${(xi - x) + 400}px, ${(yi - y) + 400}px);
+        transform: translate(${(xi - x) + currentWidth / 2}px, ${(yi - y) + currentHeigth / 2}px);
       }
     </style>
     <div class='pass-indicator'>P</div>

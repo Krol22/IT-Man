@@ -18,12 +18,7 @@ window.gameContext = context;
 window.gameCamera = camera;
 
 const resize = () => {
-  const containerHeigth = window.innerHeight;
   const containerWidth = window.innerWidth;
-
-  console.log(containerWidth);
-
-  const gameHeight = 600;
   const gameWidth = 810;
 
   if (containerWidth > gameWidth) {
