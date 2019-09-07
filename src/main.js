@@ -30,10 +30,6 @@ const resize = () => {
     const scale = containerWidth / gameWidth
     canvas.style.transform = `scale(${scale})`;
     canvas.style.transformOrigin = 'top left';
-  } else if (containerHeigth > gameHeight) {
-    const scale = containerHeigth / gameHeight
-    canvas.style.transform = `scale(${scale})`;
-    canvas.style.transformOrigin = 'top left';
   }
 }
 
