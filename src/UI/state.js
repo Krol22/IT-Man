@@ -31,6 +31,27 @@ module.exports = function reducer(state = init, action, args) {
         lifes: state.lifes + 1,
       }
     }
+    case 'SET_PASS_INDICATOR': {
+      const [passIndicatorX, passIndicatorY] = args;
+      return {
+        ...state,
+        passIndicatorX,
+        passIndicatorY,
+        displayPassIndicator: true,
+      };
+    }
+    case 'SHOW_PASS_INDICATOR': {
+      return {
+        ...state,
+        displayPassIndicator: true,
+      }
+    }
+    case 'HIDE_PASS_INDICATOR': {
+      return {
+        ...state,
+        displayPassIndicator: false,
+      }
+    } 
     case 'SET_INDICATOR': {
       const [indicatorX, indicatorY, playerX, playerY] = args;
       return {

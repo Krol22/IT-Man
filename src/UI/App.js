@@ -5,6 +5,7 @@ const { attach, connect, dispatch } = createStore(reducer);
 const OuterUI = require('./OuterUI');
 const BackingUpModal = require('./BUM');
 const ComputerIndicator = require('./ComputerIndicator');
+const PasswordIndicator = require('./PasswordIndicator');
 const Timer = require('./Timer');
 const Menu = require('./Menu');
 
@@ -16,6 +17,7 @@ function GameUI() {
     ${connect(OuterUI)()} 
     ${connect(BackingUpModal)()} 
     ${connect(ComputerIndicator)()} 
+    ${connect(PasswordIndicator)()} 
     ${connect(Timer)()} 
     ${connect(Menu)()}
   `;
