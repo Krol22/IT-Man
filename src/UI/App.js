@@ -6,6 +6,7 @@ const OuterUI = require('./OuterUI');
 const BackingUpModal = require('./BUM');
 const ComputerIndicator = require('./ComputerIndicator');
 const Timer = require('./Timer');
+const Menu = require('./Menu');
 
 window.connect = connect;
 window.dispatch = dispatch;
@@ -16,6 +17,7 @@ function GameUI() {
     ${connect(BackingUpModal)()} 
     ${connect(ComputerIndicator)()} 
     ${connect(Timer)()} 
+    ${connect(Menu)()}
   `;
 }
 

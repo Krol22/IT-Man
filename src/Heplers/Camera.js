@@ -17,7 +17,7 @@ Camera.prototype.update = function () {
   }
 };
 
-Camera.prototype.followPoint = function (component) {
+Camera.prototype.setFollowPoint = function (component) {
   this.followPoint = component;
 }
 

@@ -12,7 +12,7 @@ const DOWN = 40;
 const SPACE = 32;
 
 const playerSystem = {
-  init: entities => {
+  init: (entities) => {
     this.systemEntities = entities.filter(entity => 
       entity.componentTypes.includes('P') &&
       entity.componentTypes.includes('Ph') && 
@@ -87,6 +87,7 @@ const playerSystem = {
       window.dispatch('UPDATE_TIME', playerComponent.timer);
       if (playerComponent.timer < 0) {
         playerComponent.alive = false;
+        window.gsm.changeState(window.menuState);
       }
     });
   }

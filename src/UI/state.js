@@ -77,6 +77,18 @@ module.exports = function reducer(state = init, action, args) {
         displayBUModal: false,
       }
     }
+    case 'SHOW_MENU': {
+      return {
+        ...state,
+        menuStateVisible: true,
+      }
+    }
+    case 'HIDE_MENU': {
+      return {
+        ...state,
+        menuStateVisible: false,
+      }
+    }
 
   }
   return state;

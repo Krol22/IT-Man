@@ -3,9 +3,10 @@ const inputManager = require('./Engine/inputManager');
 
 const GSM = require('./Engine/gsm');
 const Camera = require('./Heplers/Camera');
-const levelState = require('./States/levelState');
+const menuState = require('./States/menuState');
 
 const generateWall = require('./Heplers/Wall.helper');
+
 
 require('./UI/App');
 
@@ -16,21 +17,14 @@ const camera = new Camera(0, 0, 800, 600, context);
 window.gameContext = context;
 window.gameCamera = camera;
 
-const menuState = {
-  init: () => {
-    window.dispatch('SHOW_MENU');
-  },
-  update: () => {},
-}
-
 const start = async () => {
-  const gsm = new GSM();
+  window.gsm = new GSM();
   inputManager.init();
-  await gsm.changeState(levelState);
+  await window.gsm.changeState(menuState);
   gameLoop.start(delta => {
     inputManager.update();
     camera.update();
-    gsm.update(delta);
+    window.gsm.update(delta);
   });
 } 
 

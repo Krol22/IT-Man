@@ -9,6 +9,8 @@ const computerSystem = require('../Systems/computerSystem');
 const itemSystem = require('../Systems/itemSystem');
 const spawnSystem = require('../Systems/spawnerSystem');
 
+const menuState = require('../States/menuState');
+
 const generateComputerEntity = require('../Heplers/Map/ComputerGenerator');
 const MapGenerator = require('../Heplers/MapGenerator');
 
@@ -78,13 +80,13 @@ const level1State = {
     );
 
     const playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
-    window.gameCamera.followPoint(playerEntity.components['Ph']);
+    window.gameCamera.setFollowPoint(playerEntity.components['Ph']);
 
     drawSystem.init(entities, window.gameContext);
     computerSystem.init(entities);
     itemSystem.init(entities);
     collisionSystem.init(entities);
-    playerSystem.init(entities);
+    playerSystem.init(entities, menuState);
     physicsSystem.init(entities);
     animationSystem.init(entities);
     spawnSystem.init(entities);
