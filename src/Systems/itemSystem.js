@@ -55,6 +55,10 @@ const itemSystem = {
 
       drawComponent.invisible = true;
 
+      if (itemComponent.type === 'PASS') {
+        window.dispatch('HIDE_PASS_INDICATOR');
+      }
+
       if (itemComponent.type === 'LIFE') {
         window.dispatch('ADD_LIFE');
         return;

@@ -11,7 +11,6 @@ const spawnSystem = require('../Systems/spawnerSystem');
 
 const menuState = require('../States/menuState');
 
-const generateComputerEntity = require('../Heplers/Map/ComputerGenerator');
 const MapGenerator = require('../Heplers/MapGenerator');
 
 const loadAsset = imageSrc => {
@@ -76,6 +75,11 @@ const level1State = {
           delayTimer: 0,
         },
         { n: 'Ph', x: 100, y: 100, vx: 0, vy: 0, ax: 0, ay: 0, width: 64, height: 64, skipCollisionCheck: true },
+      ]),
+      new Entity([
+        { n: 'S' },
+        { n: 'I', name: 'Password', type: 'PASS', pass: 'SECRET_123', floatTimer: 1, floatDirection: -1, timer: 0 },
+        { n: 'D', x: 100, y: 100, width: 52, height: 52, invisible: true, image: mapGenerator.assets.password },
       ]),
     );
 

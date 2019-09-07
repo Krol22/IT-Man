@@ -47,6 +47,7 @@ const spawnSystem = {
   },
   update: delta => {
     const computers = this.systemEntities.filter(entity => entity.componentTypes.includes('Cp'))
+    const password = this.systemEntities.filter(entity => entity.componentTypes.includes('I'))[0];
     const activeComputers = computers.filter(entity => entity.components['Cp'].state !== 'FIXED');
 
     if (!activeComputers.length) {
@@ -62,6 +63,17 @@ const spawnSystem = {
 
       phComponent.x = x;
       phComponent.y = y;
+
+      if (state === 'LOCKED') {
+        const passwordDComponent = password.components['D'];
+        const {x: xi, y: yi} = getAvailableRandomPosition(this.phEntities, passwordDComponent.width, passwordDComponent.height);
+
+        passwordDComponent.x = xi;
+        passwordDComponent.y = yi;
+        password.components['D'].invisible = false;
+
+        window.dispatch('SET_PASS_INDICATOR', xi, yi);
+      }
 
       window.dispatch('SET_INDICATOR', x, y);
     }

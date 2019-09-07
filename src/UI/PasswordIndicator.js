@@ -24,7 +24,7 @@ module.exports = function ComputerIndicator(state) {
 
   return html`
     <style>
-      .indicator {
+      .pass-indicator {
         z-index: 5;
         display: inline-block;
         width: 5px;
@@ -36,6 +36,6 @@ module.exports = function ComputerIndicator(state) {
         transform: translate(${(xi - x) + 400}px, ${(yi - y) + 400}px);
       }
     </style>
-    <div class='indicator'>P</div>
+    <div class='pass-indicator'>P</div>
   `
 }

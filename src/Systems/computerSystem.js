@@ -26,7 +26,10 @@ function isNear(playerEntity, computerPhComponent) {
   }); 
 }
 
-const handleComputerInteraction = entity => {
+const handleComputerInteraction = system => {
+  const entity = system.computerEntity;
+  const passEntity = system.passEntity;
+
   const phComponent = entity.components['Ph'];
   const cpComponent = entity.components['Cp'];
   const aComponent = entity.components['A'];
@@ -59,8 +62,10 @@ const handleComputerInteraction = entity => {
       }
       break;
     case 'LOCKED':
-      cpComponent.state = 'BROKEN';
-      aComponent.state = 'BROKEN';
+      if (passEntity.components['D'].invisible) {
+        cpComponent.state = 'BROKEN';
+        aComponent.state = 'BROKEN';
+      }
       break;
   }
 };
@@ -69,9 +74,10 @@ const computerSystem = {
   init: (entities) => {
     this.playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
     this.computerEntity = entities.filter(entity => entity.componentTypes.includes('Cp'))[0];
+    this.passEntity = entities.find(entity => entity.componentTypes.includes('I') && entity.components['I'].type === 'PASS');
   },
   update: () => {
-    handleComputerInteraction(this.computerEntity);
+    handleComputerInteraction(this);
   },
 };
 

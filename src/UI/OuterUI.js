@@ -10,12 +10,6 @@ module.exports = function OuterUI(state) {
 
   return html`
     <div class="outerUI">
-      <div class="eq">
-        <h2>Equipment: </h2>
-        <ul>
-          ${eq.map(item => `<li>${item}</li>`)}
-        </ul>
-      </div>
       <div class="score">
         <h2>Score: </h2>
         <span class="score">${score}</span>
