@@ -25,15 +25,37 @@ const playerSystem = {
       const playerComponent = entity.components['P'];
       if (inputManager.keys[LEFT].isDown) {
         playerComponent.state = 'GO_LEFT';
+        if (inputManager.keys[UP].isDown) {
+          playerComponent.state = 'GO_UP_LEFT';
+        } else if (inputManager.keys[DOWN].isDown) {
+          playerComponent.state = 'GO_DOWN_LEFT';
+        }
       } else if (inputManager.keys[RIGHT].isDown) {
         playerComponent.state = 'GO_RIGHT';
+        if (inputManager.keys[UP].isDown) {
+          playerComponent.state = 'GO_UP_RIGHT';
+        } else if (inputManager.keys[DOWN].isDown) {
+          playerComponent.state = 'GO_DOWN_RIGHT';
+        }
       } else if (inputManager.keys[UP].isDown) {
         playerComponent.state = 'GO_UP';
+        if (inputManager.keys[LEFT].isDown) {
+          playerComponent.state = 'GO_UP_LEFT';
+        } else if (inputManager.keys[RIGHT].isDown) {
+          playerComponent.state = 'GO_UP_RIGHT';
+        }
       } else if (inputManager.keys[DOWN].isDown) {
         playerComponent.state = 'GO_DOWN';
+        if (inputManager.keys[LEFT].isDown) {
+          playerComponent.state = 'GO_DOWN_LEFT';
+        } else if (inputManager.keys[RIGHT].isDown) {
+          playerComponent.state = 'GO_DOWN_RIGHT';
+        }
       } else {
         playerComponent.state = 'IDLE';
       }
+
+      console.log(playerComponent.state);
 
       if (inputManager.keys[SPACE].isDown) {
         playerComponent.state = 'BACK_UP';
@@ -52,13 +74,6 @@ const playerSystem = {
           animationComponent.state = 'WALK';
           physicsComponent.ay = PLAYER_AY;
           break;
-        default: 
-          physicsComponent.ay = 0;
-          physicsComponent.vy = 0;
-          break;
-      }
-
-      switch(playerComponent.state) {
         case 'GO_LEFT': 
           animationComponent.state = 'WALK';
           physicsComponent.ax = -PLAYER_AX;
@@ -69,9 +84,35 @@ const playerSystem = {
           physicsComponent.ax = PLAYER_AX;
           drawCompponent.flipX = false;
           break;
+        case 'GO_UP_RIGHT': 
+          animationComponent.state = 'WALK';
+          physicsComponent.ax = PLAYER_AX * 0.8;
+          physicsComponent.ay = -PLAYER_AY * 0.8;
+          drawCompponent.flipX = false;
+          break;
+        case 'GO_UP_LEFT': 
+          animationComponent.state = 'WALK';
+          physicsComponent.ax = -PLAYER_AX * 0.8;
+          physicsComponent.ay = -PLAYER_AY * 0.8;
+          drawCompponent.flipX = true;
+          break;
+        case 'GO_DOWN_RIGHT': 
+          animationComponent.state = 'WALK';
+          physicsComponent.ax = PLAYER_AX * 0.8;
+          physicsComponent.ay = PLAYER_AY * 0.8;
+          drawCompponent.flipX = false;
+          break;
+        case 'GO_DOWN_LEFT': 
+          animationComponent.state = 'WALK';
+          physicsComponent.ax = -PLAYER_AX * 0.8;
+          physicsComponent.ay = PLAYER_AY * 0.8;
+          drawCompponent.flipX = true;
+          break;
         default: 
           physicsComponent.ax = 0;
+          physicsComponent.ay = 0;
           physicsComponent.vx = 0;
+          physicsComponent.vy = 0;
           break;
       }
 
@@ -85,10 +126,10 @@ const playerSystem = {
 
       playerComponent.timer--;
       window.dispatch('UPDATE_TIME', playerComponent.timer);
-      if (playerComponent.timer < 0) {
-        playerComponent.alive = false;
-        window.gsm.changeState(window.menuState);
-      }
+      // if (playerComponent.timer < 0) {
+        // playerComponent.alive = false;
+        // window.gsm.changeState(window.menuState);
+      // }
     });
   }
 };
