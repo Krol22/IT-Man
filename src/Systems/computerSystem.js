@@ -65,6 +65,8 @@ const handleComputerInteraction = system => {
       if (passEntity.components['D'].invisible) {
         cpComponent.state = 'BROKEN';
         aComponent.state = 'BROKEN';
+      } else {
+        window.dispatch('CHANGE_STATUS', 'You need to pickup password first to unlock computer!');
       }
       break;
   }

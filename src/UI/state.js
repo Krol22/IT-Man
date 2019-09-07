@@ -110,6 +110,12 @@ module.exports = function reducer(state = init, action, args) {
         menuStateVisible: false,
       }
     }
+    case 'CHANGE_STATUS': {
+      return {
+        ...state,
+        currentStatus: args[0],
+      }
+    }
 
   }
   return state;

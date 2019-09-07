@@ -17,7 +17,7 @@ Camera.prototype.update = function () {
   }
   this.ctx.fillRect(-10000, -10000, 20000, 20000);
   this.ctx.fillStyle = '#111';
-  this.ctx.fillRect(20, 20, 33 * TILE_SIZE * SCALE - 20, 37 * TILE_SIZE * SCALE - 20);
+  this.ctx.fillRect(20, 20, 33 * TILE_SIZE * SCALE - 50, 37 * TILE_SIZE * SCALE - 50);
 
   if (this.followPoint) {
     this.moveTo(this.followPoint.x, this.followPoint.y);
