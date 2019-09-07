@@ -1,4 +1,4 @@
-const { SCALE } = require('../const');
+const { SCALE, TILE_SIZE } = require('../const');
 const Camera = function(x, y, w, h, ctx) {
   this.ctx = ctx; 
   this.x = x;
@@ -8,9 +8,11 @@ const Camera = function(x, y, w, h, ctx) {
 };
 
 Camera.prototype.update = function () {
-  this.ctx.clearRect(-10000, -10000, 20000, 20000);
-  this.ctx.fillStyle = '#111';
+  // this.ctx.clearRect(-10000, -10000, 20000, 20000);
+  this.ctx.fillStyle = '#ff0000';
   this.ctx.fillRect(-10000, -10000, 20000, 20000);
+  this.ctx.fillStyle = '#111';
+  this.ctx.fillRect(0, 0, 33 * TILE_SIZE * SCALE - 20, 37 * TILE_SIZE * SCALE - 20);
 
   if (this.followPoint) {
     this.moveTo(this.followPoint.x, this.followPoint.y);

@@ -55,8 +55,6 @@ const playerSystem = {
         playerComponent.state = 'IDLE';
       }
 
-      console.log(playerComponent.state);
-
       if (inputManager.keys[SPACE].isDown) {
         playerComponent.state = 'BACK_UP';
       }
@@ -69,19 +67,23 @@ const playerSystem = {
         case 'GO_UP': 
           animationComponent.state = 'WALK';
           physicsComponent.ay = -PLAYER_AY;
+          physicsComponent.ax = 0;
           break;
         case 'GO_DOWN': 
           animationComponent.state = 'WALK';
           physicsComponent.ay = PLAYER_AY;
+          physicsComponent.ax = 0;
           break;
         case 'GO_LEFT': 
           animationComponent.state = 'WALK';
           physicsComponent.ax = -PLAYER_AX;
+          physicsComponent.ay = 0;
           drawCompponent.flipX = true;
           break;
         case 'GO_RIGHT': 
           animationComponent.state = 'WALK';
           physicsComponent.ax = PLAYER_AX;
+          physicsComponent.ay = 0;
           drawCompponent.flipX = false;
           break;
         case 'GO_UP_RIGHT': 
