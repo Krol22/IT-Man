@@ -8,8 +8,10 @@ const collisionSystem = require('../Systems/collisionSystem');
 const computerSystem = require('../Systems/computerSystem');
 const itemSystem = require('../Systems/itemSystem');
 const spawnSystem = require('../Systems/spawnerSystem');
+const enemySystem = require('../Systems/enemySystem');
 
 const menuState = require('../States/menuState');
+const { ENEMY_SPEED } = require('../const');
 
 const MapGenerator = require('../Heplers/MapGenerator');
 
@@ -49,6 +51,7 @@ const level1State = {
       computerSystem,
       itemSystem,
       spawnSystem,
+      enemySystem,
     ]);
 
     const mapGenerator = await new MapGenerator(assets);
@@ -97,8 +100,65 @@ const level1State = {
           },
           delayTimer: 0,
         },
-        { n: 'D', x: -100, y: -100, width: 96, height: 96, image: assets.enemy2 },
-        { n: 'Ph', x: 655, y: 1500, vx: 0, vy: 0, ax: 0, ay: 1, width: 96, height: 96, skipCollisionCheck: true },
+        { n: 'D', x: -100, y: -100, width: 124, height: 124, image: assets.enemy2 },
+        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 124, height: 124, skipCollisionCheck: true },
+      ]),
+      new Entity([
+        { n: 'S' },
+        { n: 'E', type: 1, bh: 'RANDOM', },
+        {
+          n: 'A',
+          currentFrame: 0,
+          state: 'WALK',
+          frames: 3,
+          animations: {
+            WALK: {
+              frames: [0, 1, 2],
+              time: 20 
+            },
+          },
+          delayTimer: 0,
+        },
+        { n: 'D', x: -100, y: -100, width: 124, height: 124, image: assets.enemy2 },
+        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 124, height: 124, skipCollisionCheck: true },
+      ]),
+      new Entity([
+        { n: 'S' },
+        { n: 'E', type: 1, bh: 'RANDOM', },
+        {
+          n: 'A',
+          currentFrame: 0,
+          state: 'WALK',
+          frames: 3,
+          animations: {
+            WALK: {
+              frames: [0, 1, 2],
+              time: 20 
+            },
+          },
+          delayTimer: 0,
+        },
+        { n: 'D', x: -100, y: -100, width: 124, height: 124, image: assets.enemy2 },
+        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 124, height: 124, skipCollisionCheck: true },
+      ]),
+      new Entity([
+        { n: 'S' },
+        { n: 'E', type: 1, bh: 'RANDOM', },
+        {
+          n: 'A',
+          currentFrame: 0,
+          state: 'WALK',
+          frames: 3,
+          animations: {
+            WALK: {
+              frames: [0, 1, 2],
+              time: 20 
+            },
+          },
+          delayTimer: 0,
+        },
+        { n: 'D', x: -100, y: -100, width: 124, height: 124, image: assets.enemy2 },
+        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 124, height: 124, skipCollisionCheck: true },
       ]),
     );
 
@@ -113,6 +173,7 @@ const level1State = {
     physicsSystem.init(entities);
     animationSystem.init(entities);
     spawnSystem.init(entities);
+    enemySystem.init(entities);
   },
   update: (delta) => {
     level1State.ecs.update(delta);
