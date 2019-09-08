@@ -100,8 +100,8 @@ const level1State = {
           },
           delayTimer: 0,
         },
-        { n: 'D', x: -100, y: -100, width: 124, height: 124, image: assets.enemy2 },
-        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 124, height: 124, skipCollisionCheck: true },
+        { n: 'D', x: -100, y: -100, width: 122, height: 122, image: assets.enemy2 },
+        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 122, height: 122, skipCollisionCheck: true },
       ]),
       new Entity([
         { n: 'S' },
@@ -119,8 +119,8 @@ const level1State = {
           },
           delayTimer: 0,
         },
-        { n: 'D', x: -100, y: -100, width: 124, height: 124, image: assets.enemy2 },
-        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 124, height: 124, skipCollisionCheck: true },
+        { n: 'D', x: -100, y: -100, width: 122, height: 122, image: assets.enemy2 },
+        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 122, height: 122, skipCollisionCheck: true },
       ]),
       new Entity([
         { n: 'S' },
@@ -138,8 +138,8 @@ const level1State = {
           },
           delayTimer: 0,
         },
-        { n: 'D', x: -100, y: -100, width: 124, height: 124, image: assets.enemy2 },
-        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 124, height: 124, skipCollisionCheck: true },
+        { n: 'D', x: -100, y: -100, width: 122, height: 122, image: assets.enemy2 },
+        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 122, height: 122, skipCollisionCheck: true },
       ]),
       new Entity([
         { n: 'S' },
@@ -157,8 +157,8 @@ const level1State = {
           },
           delayTimer: 0,
         },
-        { n: 'D', x: -100, y: -100, width: 124, height: 124, image: assets.enemy2 },
-        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 124, height: 124, skipCollisionCheck: true },
+        { n: 'D', x: -100, y: -100, width: 122, height: 122, image: assets.enemy2 },
+        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 122, height: 122, skipCollisionCheck: true },
       ]),
     );
 
