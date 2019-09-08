@@ -19,10 +19,18 @@ window.gameCamera = camera;
 
 const resize = () => {
   const containerWidth = window.innerWidth;
+  const containerHeight = window.innerHeight;
+
   const gameWidth = 810;
+  const gameHeight = 620;
+
+  const scale = containerWidth / gameWidth;
+
+  if (containerHeight < gameHeight * scale) {
+    return;
+  }
 
   if (containerWidth > gameWidth) {
-    const scale = containerWidth / gameWidth
     canvas.style.transform = `scale(${scale})`;
     canvas.style.transformOrigin = 'top left';
   }

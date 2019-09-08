@@ -47,7 +47,6 @@ const handleComputerInteraction = system => {
     return;
   }
 
-
   switch(cpComponent.state) {
     case 'BROKEN': 
       cpComponent.backupTimer++;
@@ -74,6 +73,7 @@ const handleComputerInteraction = system => {
 
 const computerSystem = {
   init: (entities) => {
+
     this.playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
     this.computerEntity = entities.filter(entity => entity.componentTypes.includes('Cp'))[0];
     this.passEntity = entities.find(entity => entity.componentTypes.includes('I') && entity.components['I'].type === 'PASS');
