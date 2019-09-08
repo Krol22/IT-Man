@@ -10,8 +10,9 @@ function collides (player, object) {
     player.y + player.height > object.y);
 };
 
-const handleRandomWalk = (entity, mapEntities) => {
+const handleRandomWalk = (entity, mapEntities, isNotLinear) => {
   const enemyPhComponent = entity.components['Ph'];
+  const enemyComponent = entity.components['E'];
   const collisionObj = {
     top: false,
     left: false,
@@ -22,7 +23,7 @@ const handleRandomWalk = (entity, mapEntities) => {
   mapEntities.forEach(entity => {
     const mapPhComponent = entity.components['Ph'];
     if (!collisionObj.top) {
-      const offset = enemyPhComponent.vy < 0 ? 1 : enemyPhComponent.height;
+      const offset = enemyPhComponent.vy < 0 ? 14 : enemyPhComponent.height;
       collisionObj.top = collides(
         mapPhComponent,
         {
@@ -35,7 +36,7 @@ const handleRandomWalk = (entity, mapEntities) => {
     }
 
     if (!collisionObj.bottom) {
-      const offset = enemyPhComponent.vy > 0 ? 1 : enemyPhComponent.height;
+      const offset = enemyPhComponent.vy > 0 ? 14 : enemyPhComponent.height;
       collisionObj.bottom = collides(
         mapPhComponent,
         {
@@ -48,7 +49,7 @@ const handleRandomWalk = (entity, mapEntities) => {
     }
 
     if (!collisionObj.left) {
-      const offset = enemyPhComponent.vx < 0 ? 1 : enemyPhComponent.width;
+      const offset = enemyPhComponent.vx < 0 ? 14 : enemyPhComponent.width;
       collisionObj.left = collides(
         mapPhComponent,
         {
@@ -61,7 +62,7 @@ const handleRandomWalk = (entity, mapEntities) => {
     }
 
     if (!collisionObj.right) {
-      const offset = enemyPhComponent.vx > 0 ? 1 : enemyPhComponent.width;
+      const offset = enemyPhComponent.vx > 0 ? 14 : enemyPhComponent.width;
       collisionObj.right = collides(
         mapPhComponent,
         {
@@ -75,35 +76,45 @@ const handleRandomWalk = (entity, mapEntities) => {
   });
 
   let direction; 
-
   
-  // if (enemyPhComponent.vx < 0) { // LEFT
-    // direction = 'left';
-    // collisionObj.right = true;
-  // } else if (enemyPhComponent.vx > 0) { // RIGHT
-    // direction = 'right';
-    // collisionObj.left = true;
-  // } else if (enemyPhComponent.vy < 0) { // TOP
-    // direction = 'top';
-    // collisionObj.bottom = true;
-  // } else { // DOWN
-    // direction = 'bottom';
-    // collisionObj.top = true;
-  // }
+  if (enemyPhComponent.vx < 0) { // LEFT
+    direction = 'left';
+    collisionObj.right = true;
+  } else if (enemyPhComponent.vx > 0) { // RIGHT
+    direction = 'right';
+    collisionObj.left = true;
+  } else if (enemyPhComponent.vy < 0) { // TOP
+    direction = 'top';
+    collisionObj.bottom = true;
+  } else { // DOWN
+    direction = 'bottom';
+    collisionObj.top = true;
+  }
 
+
+  enemyComponent.dirTimer++;
   const canGoFurther = !collisionObj[direction];
   let newDirection = false;
 
+  // console.log(enemyComponent.dirTimer.toFixed(2));
+  if (enemyComponent.dirTimer < 50 && canGoFurther) {
+    return;
+  }
+
   if (canGoFurther) {
-    // const willChangeDir = Math.random() > 0.5;
-    // if (willChangeDir) {
-      // const availableDirections = Object.keys(collisionObj).map(key => (!collisionObj[key] && key)).filter(value => value);
-      // if (availableDirections.length < 3) {
-        // return;
-      // }
-      // const randomDirection = Math.floor(Math.random() * availableDirections.length);
-      // newDirection = availableDirections[randomDirection];
-    // }
+    if (!isNotLinear) {
+      return;
+    }
+    const willChangeDir = Math.random() > 0.5;
+    if (willChangeDir) {
+      const availableDirections = Object.keys(collisionObj).map(key => (!collisionObj[key] && key)).filter(value => value);
+      if (availableDirections.length < 3) {
+        return;
+      }
+
+      const randomDirection = Math.floor(Math.random() * availableDirections.length);
+      newDirection = availableDirections[randomDirection];
+    }
   } else {
     const availableDirections = Object.keys(collisionObj).map(key => (!collisionObj[key] && key)).filter(value => value);
     const randomDirection = Math.floor(Math.random() * availableDirections.length);
@@ -116,6 +127,7 @@ const handleRandomWalk = (entity, mapEntities) => {
     enemyPhComponent.vx = 0;
     enemyPhComponent.ay = 0;
     enemyPhComponent.vy = 0;
+    enemyComponent.dirTimer = 0;
   } else {
     return;
   }
@@ -143,7 +155,9 @@ const enemySystem = {
       const eComponent = entity.components['E'];
 
       if (eComponent.bh === 'RANDOM') {
-        handleRandomWalk(entity, this.mapEntities);
+        handleRandomWalk(entity, this.mapEntities, true);
+      } else if(eComponent.bh === 'LINEAR') {
+        handleRandomWalk(entity, this.mapEntities, false);
       }
     });
   }

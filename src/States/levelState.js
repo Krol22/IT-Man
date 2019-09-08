@@ -86,7 +86,7 @@ const level1State = {
       ]),
       new Entity([
         { n: 'S' },
-        { n: 'E', type: 1, bh: 'RANDOM', },
+        { n: 'E', type: 1, bh: 'RANDOM', dirTimer: 0, },
         {
           n: 'A',
           currentFrame: 0,
@@ -100,12 +100,12 @@ const level1State = {
           },
           delayTimer: 0,
         },
-        { n: 'D', x: -100, y: -100, width: 122, height: 122, image: assets.enemy2 },
-        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 122, height: 122, skipCollisionCheck: true },
+        { n: 'D', x: -100, y: -100, width: 96, height: 96, image: assets.enemy2 },
+        { n: 'Ph', x: 655, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 96, height: 96, skipCollisionCheck: true },
       ]),
       new Entity([
         { n: 'S' },
-        { n: 'E', type: 1, bh: 'RANDOM', },
+        { n: 'E', type: 1, bh: 'RANDOM', dirTimer: 0, },
         {
           n: 'A',
           currentFrame: 0,
@@ -119,46 +119,27 @@ const level1State = {
           },
           delayTimer: 0,
         },
-        { n: 'D', x: -100, y: -100, width: 122, height: 122, image: assets.enemy2 },
-        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 122, height: 122, skipCollisionCheck: true },
+        { n: 'D', x: -100, y: -100, width: 96, height: 96, image: assets.enemy2 },
+        { n: 'Ph', x: 655, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 96, height: 96, skipCollisionCheck: true },
       ]),
       new Entity([
         { n: 'S' },
-        { n: 'E', type: 1, bh: 'RANDOM', },
+        { n: 'E', type: 2, bh: 'LINEAR', dirTimer: 0, },
         {
           n: 'A',
           currentFrame: 0,
           state: 'WALK',
-          frames: 3,
+          frames: 2,
           animations: {
             WALK: {
-              frames: [0, 1, 2],
-              time: 20 
+              frames: [0, 1],
+              time: 13 
             },
           },
           delayTimer: 0,
         },
-        { n: 'D', x: -100, y: -100, width: 122, height: 122, image: assets.enemy2 },
-        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 122, height: 122, skipCollisionCheck: true },
-      ]),
-      new Entity([
-        { n: 'S' },
-        { n: 'E', type: 1, bh: 'RANDOM', },
-        {
-          n: 'A',
-          currentFrame: 0,
-          state: 'WALK',
-          frames: 3,
-          animations: {
-            WALK: {
-              frames: [0, 1, 2],
-              time: 20 
-            },
-          },
-          delayTimer: 0,
-        },
-        { n: 'D', x: -100, y: -100, width: 122, height: 122, image: assets.enemy2 },
-        { n: 'Ph', x: 642, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 122, height: 122, skipCollisionCheck: true },
+        { n: 'D', x: -100, y: -100, width: 96, height: 96, image: assets.enemy1 },
+        { n: 'Ph', x: 655, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 96, height: 96, skipCollisionCheck: true },
       ]),
     );
 
