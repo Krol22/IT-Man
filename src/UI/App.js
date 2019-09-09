@@ -8,6 +8,7 @@ const ComputerIndicator = require('./ComputerIndicator');
 const PasswordIndicator = require('./PasswordIndicator');
 const StatusLine = require('./StatusLine');
 const Menu = require('./Menu');
+const HTP = require('./HowToPlay');
 
 window.connect = connect;
 window.dispatch = dispatch;
@@ -20,6 +21,7 @@ function GameUI() {
     ${connect(PasswordIndicator)()} 
     ${connect(StatusLine)()}
     ${connect(Menu)()}
+    ${connect(HTP)()}
   `;
 }
 

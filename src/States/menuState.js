@@ -1,10 +1,11 @@
 const inputManager = require('../Engine/inputManager');
-const levelState = require('../States/levelState');
+const levelState = require('./levelState');
 
 const SPACE = 32;
 const menuState = {
   init: () => {
     window.dispatch('SHOW_MENU');
+    window.dispatch('HIDE_HTP');
   },
   update: () => {
     if (inputManager.keys[SPACE].isDown) {
@@ -16,4 +17,4 @@ const menuState = {
 
 window.menuState = menuState;
 
-module.exports = menuState;
+module.exports = menuState ;

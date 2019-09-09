@@ -99,6 +99,18 @@ module.exports = function reducer(state = init, action, args) {
         displayBUModal: false,
       }
     }
+    case 'SHOW_HTP': {
+      return {
+        ...state,
+        htpVisible: true,
+      }
+    }
+    case 'HIDE_HTP': {
+      return {
+        ...state,
+        htpVisible: false,
+      }
+    }
     case 'SHOW_MENU': {
       return {
         ...state,

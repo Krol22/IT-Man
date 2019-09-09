@@ -5,6 +5,8 @@ const GSM = require('./Engine/gsm');
 const Camera = require('./Heplers/Camera');
 const menuState = require('./States/menuState');
 
+require('./States/howToPlayState');
+
 const generateWall = require('./Heplers/Wall.helper');
 
 
