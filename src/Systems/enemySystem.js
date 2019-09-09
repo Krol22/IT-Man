@@ -159,6 +159,18 @@ const enemySystem = {
       } else if(eComponent.bh === 'LINEAR') {
         handleRandomWalk(entity, this.mapEntities, false);
       }
+
+      const phC = this.player.components['Ph'];
+      if(!this.player.components['P'].alive) {
+        return;
+      }
+
+      if(collides(phC, entity.components['Ph'])) {
+        this.player.components['P'].alive = false;
+        this.player.components['P'].reason = 'VIRUS';
+        phC.ax = 0;
+        phC.ay = 0;
+      }
     });
   }
 }

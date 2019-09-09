@@ -15,33 +15,9 @@ const { ENEMY_SPEED } = require('../const');
 
 const MapGenerator = require('../Heplers/MapGenerator');
 
-const loadAsset = imageSrc => {
-  return new Promise(resolve => {
-    const asset = new Image();
-    asset.src = imageSrc;
-    asset.onload = () => {
-      resolve(asset);
-    }
-
-    asset.onerror = e => {
-      console.log(e);
-    }
-  });
-}
-
 const level1State = {
   init: async () => {
-    const assets = {};
-    assets.player = await loadAsset('IT_Man.png');
-    assets.computer = await loadAsset('Computer.png');
-    assets.fireEx = await loadAsset('Item_2.png');
-    assets.life = await loadAsset('Item_3.png');
-    assets.password = await loadAsset('Item_1.png');
-    assets.wall = await loadAsset('Walls.png');
-    assets.backgroundWall = await loadAsset('Wall.png');
-    assets.enemy1 = await loadAsset('Enemy_1.png');
-    assets.enemy2 = await loadAsset('Enemy_2.png');
-
+    const assets = window.assets;
     level1State.ecs = new ECS([
       playerSystem,
       physicsSystem,
@@ -55,6 +31,7 @@ const level1State = {
     ]);
 
     const mapGenerator = await new MapGenerator(assets);
+    window.dispatch('HIDE_GOM');
 
     const entities = mapGenerator.loadMap(0);
     entities.push(
@@ -160,5 +137,7 @@ const level1State = {
     level1State.ecs.update(delta);
   },
 };
+
+window.levelState = level1State;
 
 module.exports = level1State;

@@ -9,27 +9,11 @@ const init = {
 
 module.exports = function reducer(state = init, action, args) {
   switch (action) {
-    case 'ADD_EQ': {
-      const [value] = args;
-      return {
-        ...state,
-        eq: [
-          ...state.eq,
-          value,
-        ],
-      };
-    }
     case 'ADD_SCORE': {
       const [value] = args;
       return {
         ...state,
         score: state.score + value,
-      }
-    }
-    case 'ADD_LIFE': {
-      return {
-        ...state,
-        lifes: state.lifes + 1,
       }
     }
     case 'SET_PASS_INDICATOR': {
@@ -82,14 +66,26 @@ module.exports = function reducer(state = init, action, args) {
         timeLeft: args[0]
       };
     }
+    case 'SHOW_GOM': {
+      return {
+        ...state,
+        displayGOModal: true,
+        killedBy: args[0],
+      };
+    }
+    case 'HIDE_GOM': {
+      return {
+        ...state,
+        score: 0,
+        displayGOModal: false,
+      };
+    }
     // show back up modal
     case 'SHOW_BU_MODAL': {
-      const [buTime, bumX, bumY] = args;
+      const [buTime] = args;
       return {
         ...state,
         buTime,
-        bumX,
-        bumY,
         displayBUModal: true,
       }
     }
@@ -123,13 +119,6 @@ module.exports = function reducer(state = init, action, args) {
         menuStateVisible: false,
       }
     }
-    case 'CHANGE_STATUS': {
-      return {
-        ...state,
-        currentStatus: args[0],
-      }
-    }
-
   }
   return state;
 }

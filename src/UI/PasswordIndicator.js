@@ -39,7 +39,7 @@ module.exports = function ComputerIndicator(state) {
         font-weight: 700;
         color: #00dd00;
         position: absolute;
-        transform: translate(${(xi - x) + currentWidth / 2}px, ${(yi - y) + currentHeigth / 2}px);
+        transform: translate(${(xi - x)}px, ${(yi - y) + currentHeigth / 2}px);
       }
     </style>
     <div class='pass-indicator'>P</div>

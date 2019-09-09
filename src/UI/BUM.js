@@ -2,16 +2,23 @@ const { html } = require('./innerself');
 const { SCALE } = require('../const');
 
 module.exports = function BackingUpModal(state) {
-  const { displayBUModal, buTime, bumX, bumY } = state;
+  const { displayBUModal, buTime } = state;
   if (!displayBUModal) {
     return html``;
   }
 
+  const top = window.gameCanvas ? `${window.gameCanvas.getBoundingClientRect().height.toFixed(0) / 2 - 90}px` : '50%';
+
   return html`
     <style>
       .buModal {
-        top: ${50 + bumY - window.gameCamera.y * SCALE}px;
-        left: ${-10 + bumX - window.gameCamera.x * SCALE}px;
+        top: ${top};
+        left: 50%;
+        position: absolute;
+        border: 2px solid #73f6c6;
+        padding: 10px 20px;
+        z-index: 9;
+        transform: translate(-50%, -50%);
       }
     </style>
     <div class="buModal">

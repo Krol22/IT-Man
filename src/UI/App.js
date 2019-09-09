@@ -6,9 +6,9 @@ const OuterUI = require('./OuterUI');
 const BackingUpModal = require('./BUM');
 const ComputerIndicator = require('./ComputerIndicator');
 const PasswordIndicator = require('./PasswordIndicator');
-const StatusLine = require('./StatusLine');
 const Menu = require('./Menu');
 const HTP = require('./HowToPlay');
+const GOM = require('./GOM');
 
 window.connect = connect;
 window.dispatch = dispatch;
@@ -19,9 +19,9 @@ function GameUI() {
     ${connect(BackingUpModal)()} 
     ${connect(ComputerIndicator)()} 
     ${connect(PasswordIndicator)()} 
-    ${connect(StatusLine)()}
     ${connect(Menu)()}
     ${connect(HTP)()}
+    ${connect(GOM)()}
   `;
 }
 

@@ -1,22 +1,33 @@
 const { html } = require('./innerself');
 
 module.exports = function OuterUI(state) {
-  const { eq, score, lifes } = state;
-
-  const lifesArr = [];
-  for (let i = 0; i < lifes - 1; i++) {
-    lifesArr.push('<img class="lifeAsset" width=32 heigth=32 src="./Item_3.png" />');
-  }
+  const { score, timeLeft } = state;
 
   return html`
-    <div class="outerUI">
-      <div class="score">
-        <h2>Score: </h2>
-        <span class="score">${score}</span>
-      </div>
-      <div class="lifes">
-        <h2>Lifes: ${lifes}</h2>
-      </div>
+    <style>
+      .ui {
+        background-color: black;
+        position: absolute;
+        z-index: 8;
+        min-width: 600px;
+        margin: 0px 10px;
+        text-align: center;
+        padding: 10px;
+        font-size: 20px;
+        display: flex;
+        justify-content: space-around;
+        border: 2px solid #73f8c6;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .danger {
+        color: #ff0000;
+      }
+    </style>
+    <div class="ui">
+      <span>SCORE: ${score}</span>
+      <span class="${timeLeft < 400 && 'danger'}">TIME: ${timeLeft}</span>
     </div>
   `;
 };

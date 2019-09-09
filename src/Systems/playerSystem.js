@@ -23,6 +23,11 @@ const playerSystem = {
   update: delta => {
     this.systemEntities.forEach(entity => {
       const playerComponent = entity.components['P'];
+      if (!playerComponent.alive) {
+        window.dispatch('SHOW_GOM', playerComponent.reason === 'TIME' ? 'Your time finished!' : 'Computer virus got you!')
+        return;
+      }
+
       if (inputManager.keys[LEFT].isDown) {
         playerComponent.state = 'GO_LEFT';
         if (inputManager.keys[UP].isDown) {
@@ -128,10 +133,11 @@ const playerSystem = {
 
       playerComponent.timer--;
       window.dispatch('UPDATE_TIME', playerComponent.timer);
-      // if (playerComponent.timer < 0) {
-        // playerComponent.alive = false;
-        // window.gsm.changeState(window.menuState);
-      // }
+      if (playerComponent.timer <= 0) {
+        playerComponent.alive = false;
+        playerComponent.reason = 'TIME';
+        window.dispatch('SHOW_GOM');
+      }
     });
   }
 };

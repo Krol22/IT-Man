@@ -6,7 +6,7 @@ module.exports = function ComputerIndicator(state) {
     return html``;
   }
 
-  const { displayIndicator, indicatorX, indicatorY } = state;
+  const {displayIndicator, indicatorX, indicatorY} = state;
   const {x, y} = window.gameCamera;
 
   if (!displayIndicator) {
@@ -39,7 +39,7 @@ module.exports = function ComputerIndicator(state) {
         font-weight: 700;
         color: #dd00aa;
         position: absolute;
-        transform: translate(${(xi - x) + currentWidth / 2}px, ${(yi - y) + currentHeigth / 2}px);
+        transform: translate(${(xi - x)}px, ${(yi - y) + currentHeigth / 2}px);
       }
     </style>
     <div class='indicator'>C</div>
