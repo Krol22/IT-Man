@@ -69,7 +69,7 @@ const start = async () => {
 
   window.gsm = new GSM();
   inputManager.init();
-  await window.gsm.changeState(levelState);
+  await window.gsm.changeState(menuState);
   gameLoop.start(delta => {
     inputManager.update();
     camera.update();

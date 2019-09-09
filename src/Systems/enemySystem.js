@@ -96,7 +96,6 @@ const handleRandomWalk = (entity, mapEntities, isNotLinear) => {
   const canGoFurther = !collisionObj[direction];
   let newDirection = false;
 
-  // console.log(enemyComponent.dirTimer.toFixed(2));
   if (enemyComponent.dirTimer < 50 && canGoFurther) {
     return;
   }
@@ -132,10 +131,14 @@ const handleRandomWalk = (entity, mapEntities, isNotLinear) => {
     return;
   }
 
+  const enemyDComponent = entity.components['D'];
+
   if (newDirection === 'left') {
     enemyPhComponent.ax = -ENEMY_SPEED;
+    enemyDComponent.flipX = true;
   } else if (newDirection === 'right') {
     enemyPhComponent.ax = ENEMY_SPEED;
+    enemyDComponent.flipX = false;
   } else if (newDirection === 'top') {
     enemyPhComponent.ay = -ENEMY_SPEED;
   } else if (newDirection === 'bottom') {
