@@ -39,7 +39,7 @@ module.exports = function GOM(state) {
     </style>
     <div class="background"></div>
     <div class="gom">
-      <h1>GAME OVER</h1>
+      <h1>GAME OVER!</h1>
       <div>${killedBy}</div>
       <div>You have scored: ${score}</div>
       <div class="btn" onclick="window.gsm.changeState(window.levelState)">[ Restart ]</div>

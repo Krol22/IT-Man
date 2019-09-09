@@ -23,7 +23,7 @@ const handleRandomWalk = (entity, mapEntities, isNotLinear) => {
   mapEntities.forEach(entity => {
     const mapPhComponent = entity.components['Ph'];
     if (!collisionObj.top) {
-      const offset = enemyPhComponent.vy < 0 ? 14 : enemyPhComponent.height;
+      const offset = enemyPhComponent.vy < 0 ? 20 : enemyPhComponent.height;
       collisionObj.top = collides(
         mapPhComponent,
         {
@@ -36,7 +36,7 @@ const handleRandomWalk = (entity, mapEntities, isNotLinear) => {
     }
 
     if (!collisionObj.bottom) {
-      const offset = enemyPhComponent.vy > 0 ? 14 : enemyPhComponent.height;
+      const offset = enemyPhComponent.vy > 0 ? 20 : enemyPhComponent.height;
       collisionObj.bottom = collides(
         mapPhComponent,
         {
@@ -49,7 +49,7 @@ const handleRandomWalk = (entity, mapEntities, isNotLinear) => {
     }
 
     if (!collisionObj.left) {
-      const offset = enemyPhComponent.vx < 0 ? 14 : enemyPhComponent.width;
+      const offset = enemyPhComponent.vx < 0 ? 20 : enemyPhComponent.width;
       collisionObj.left = collides(
         mapPhComponent,
         {
@@ -62,7 +62,7 @@ const handleRandomWalk = (entity, mapEntities, isNotLinear) => {
     }
 
     if (!collisionObj.right) {
-      const offset = enemyPhComponent.vx > 0 ? 14 : enemyPhComponent.width;
+      const offset = enemyPhComponent.vx > 0 ? 20 : enemyPhComponent.width;
       collisionObj.right = collides(
         mapPhComponent,
         {
