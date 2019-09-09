@@ -1,4 +1,5 @@
 const inputManager = require('../Engine/inputManager');
+const soundManager = require('../Heplers/SoundManager');
 const { PLAYER_AX, PLAYER_AY } = require('../const');
 
 /*
@@ -134,6 +135,7 @@ const playerSystem = {
       playerComponent.timer--;
       window.dispatch('UPDATE_TIME', playerComponent.timer);
       if (playerComponent.timer <= 0) {
+        soundManager.play('death');
         playerComponent.alive = false;
         playerComponent.reason = 'TIME';
         window.dispatch('SHOW_GOM');

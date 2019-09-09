@@ -15,7 +15,7 @@ Camera.prototype.update = function () {
   if (this.color > 360) {
     this.color = 0;
   }
-  this.ctx.fillRect(-10000, -10000, 20000, 20000);
+  this.ctx.fillRect(-5000, -5000, 10000, 10000);
   this.ctx.fillStyle = '#111';
   this.ctx.fillRect(20, 20, 33 * TILE_SIZE * SCALE - 50, 37 * TILE_SIZE * SCALE - 50);
 

@@ -1,3 +1,4 @@
+const soundManager = require('../Heplers/SoundManager');
 const { SCALE } = require('../const');
 /*
   ComputerSystem - Cp
@@ -57,6 +58,7 @@ const handleComputerInteraction = system => {
         cpComponent.backupTimer = 0;
         window.dispatch('ADD_SCORE', 100);
         window.dispatch('HIDE_BU_MODAL');
+        soundManager.play('fixing');
         this.playerEntity.components['P'].timer = this.playerEntity.components['P'].timer + 600;
       }
       break;

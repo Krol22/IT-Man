@@ -1,15 +1,16 @@
 const gameLoop = require('./Engine/gameLoop');
 const inputManager = require('./Engine/inputManager');
+const soundManager = require('./Heplers/SoundManager');
 
 const GSM = require('./Engine/gsm');
 const Camera = require('./Heplers/Camera');
 const menuState = require('./States/menuState');
 const levelState = require('./States/levelState');
 
+
 require('./States/howToPlayState');
 
 const generateWall = require('./Heplers/Wall.helper');
-
 
 require('./UI/App');
 
@@ -58,8 +59,8 @@ const loadAsset = (imageSrc, isAudio) => {
 }
 
 const start = async () => {
-
   window.gsm = new GSM();
+  soundManager.init();
   inputManager.init();
   await window.gsm.changeState(menuState);
 

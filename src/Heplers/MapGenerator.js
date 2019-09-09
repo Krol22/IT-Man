@@ -6,7 +6,6 @@ const Level1Map = require('./Map/Level1');
 
 const generatePlayerEntity = require('./Map/PlayerGenerator');
 const generateComputerEntity = require('./Map/ComputerGenerator');
-const generateEnemyEntity = require('./Map/EnemyGenerator');
 
 const EntitiesToMap = [
   generatePlayerEntity,
@@ -18,27 +17,9 @@ const EntitiesToMap = [
     // COMPUTER_LOCKED
     return [generateComputerEntity(x, y, 2, mapGenerator.assets.computer)];
   },
-  (mapGenerator, x, y) => {
-    // PLAYER_LIFE
-    return [new Entity([
-      { n: 'I', name: 'Life', type: 'LIFE', floatTimer: 10, floatDirection: -1, timer: 0 },
-      { n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 52, height: 52, image: mapGenerator.assets.life },
-    ])];
-  },
-  (mapGenerator, x, y) => {
-    // FIRE_EXT
-    return [new Entity([
-      { n: 'I', name: 'Fire extuinguisher', type: 'FIRE_EX', floatTimer: 5, floatDirection: -1, timer: 0 },
-      { n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 52, height: 52, image: mapGenerator.assets.fireEx },
-    ])];
-  },
-  (mapGenerator, x, y) => {
-    // PASSWORD
-    return [new Entity([
-      { n: 'I', name: 'Password', type: 'PASS', pass: 'SECRET_123', floatTimer: 1, floatDirection: -1, timer: 0 },
-      { n: 'D', x: x*TILE_SIZE, y: y*TILE_SIZE, width: 52, height: 52, image: mapGenerator.assets.password },
-    ])];
-  },
+  () => {},
+  () => {},
+  () => {},
   (mapGenerator, x, y) => {
     const wall = generateWall(mapGenerator, x, y);
     if (!wall) {

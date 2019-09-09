@@ -15,6 +15,27 @@ const { ENEMY_SPEED } = require('../const');
 
 const MapGenerator = require('../Heplers/MapGenerator');
 
+const enemyGenerator = (x, y, type) => {
+  return new Entity([
+    { n: 'E', type, bh: type === 1 ? 'RANDOM' : 'LINEAR', dirTimer: 0, },
+    {
+      n: 'A',
+      currentFrame: 0,
+      state: 'WALK',
+      frames: type === 2 ? 3 : 2,
+      animations: {
+        WALK: {
+          frames: type === 2 ? [0, 1, 2] : [0, 1],
+          time: type === 2 ? 20 : 13,
+        },
+      },
+      delayTimer: 0,
+    },
+    { n: 'D', x: -100, y: -100, width: 96, height: 96, image: type === 2 ? assets.enemy2 : assets.enemy1},
+    { n: 'Ph', x, y, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 96, height: 96, skipCollisionCheck: true },
+  ])
+}
+
 const level1State = {
   init: async () => {
     const assets = window.assets;
@@ -61,63 +82,9 @@ const level1State = {
         { n: 'I', name: 'Password', type: 'PASS', pass: 'SECRET_123', floatTimer: 1, floatDirection: -1, timer: 0 },
         { n: 'D', x: 100, y: 100, width: 52, height: 52, invisible: true, image: assets.password },
       ]),
-      new Entity([
-        { n: 'S' },
-        { n: 'E', type: 1, bh: 'RANDOM', dirTimer: 0, },
-        {
-          n: 'A',
-          currentFrame: 0,
-          state: 'WALK',
-          frames: 3,
-          animations: {
-            WALK: {
-              frames: [0, 1, 2],
-              time: 20 
-            },
-          },
-          delayTimer: 0,
-        },
-        { n: 'D', x: -100, y: -100, width: 96, height: 96, image: assets.enemy2 },
-        { n: 'Ph', x: 655, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 96, height: 96, skipCollisionCheck: true },
-      ]),
-      new Entity([
-        { n: 'S' },
-        { n: 'E', type: 1, bh: 'RANDOM', dirTimer: 0, },
-        {
-          n: 'A',
-          currentFrame: 0,
-          state: 'WALK',
-          frames: 3,
-          animations: {
-            WALK: {
-              frames: [0, 1, 2],
-              time: 20 
-            },
-          },
-          delayTimer: 0,
-        },
-        { n: 'D', x: -100, y: -100, width: 96, height: 96, image: assets.enemy2 },
-        { n: 'Ph', x: 655, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 96, height: 96, skipCollisionCheck: true },
-      ]),
-      new Entity([
-        { n: 'S' },
-        { n: 'E', type: 2, bh: 'LINEAR', dirTimer: 0, },
-        {
-          n: 'A',
-          currentFrame: 0,
-          state: 'WALK',
-          frames: 2,
-          animations: {
-            WALK: {
-              frames: [0, 1],
-              time: 13 
-            },
-          },
-          delayTimer: 0,
-        },
-        { n: 'D', x: -100, y: -100, width: 96, height: 96, image: assets.enemy1 },
-        { n: 'Ph', x: 655, y: 1500, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 96, height: 96, skipCollisionCheck: true },
-      ]),
+      enemyGenerator(655, 1500, 2),
+      enemyGenerator(655, 1500, 2),
+      enemyGenerator(655, 1500, 1),
     );
 
     const playerEntity = entities.find(entity => entity.componentTypes.includes('P'));

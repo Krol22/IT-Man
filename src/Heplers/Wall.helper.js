@@ -24,23 +24,6 @@ function generateWall (mapGenerator, x, y) {
   } 
 
   switch(walls.length) {
-    case 0: {
-      return { type: 0, walls };
-    }
-    case 1: {
-      const wall = { type: 1, walls };
-      const {x, y} = walls[0];
-      if (x === 0) { 
-        wall.rotation = 0;
-      } else if (y === 2) { 
-        wall.rotation = 1;
-      } else if (x === 2) { 
-        wall.rotation = 2;
-      } else if (y === 0) { 
-        wall.rotation = 3;
-      }
-      return wall;
-    }
     case 2: {
       const [wall1, wall2] = walls;
       if (Math.abs(wall1.x - wall2.x) === 2 || Math.abs(wall1.y - wall2.y) === 2)  {

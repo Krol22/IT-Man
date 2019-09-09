@@ -1,4 +1,5 @@
 const { ENEMY_SPEED } = require('../const');
+const soundManager = require('../Heplers/SoundManager');
 
 /*
  EnemySystem - E
@@ -170,6 +171,7 @@ const enemySystem = {
 
       if(collides(phC, entity.components['Ph'])) {
         this.player.components['P'].alive = false;
+        soundManager.play('death');
         this.player.components['P'].reason = 'VIRUS';
         phC.ax = 0;
         phC.ay = 0;

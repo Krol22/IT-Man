@@ -1,3 +1,4 @@
+const soundManager = require('../Heplers/SoundManager');
 /* 
   ItemSystem - I -> responsible for picking up Items and animate them,
 
@@ -55,16 +56,8 @@ const itemSystem = {
 
       drawComponent.invisible = true;
 
-      if (itemComponent.type === 'PASS') {
-        window.dispatch('HIDE_PASS_INDICATOR');
-      }
-
-      if (itemComponent.type === 'LIFE') {
-        window.dispatch('ADD_LIFE');
-        return;
-      }
-
-      window.dispatch('ADD_EQ', itemComponent.name);
+      window.dispatch('HIDE_PASS_INDICATOR');
+      soundManager.play('pickup');
     });
   },
 }

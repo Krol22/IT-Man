@@ -38,6 +38,7 @@
     "test": "gulp lint"
   },
   "dependencies": {
-    "innerself": "^0.1.1"
+    "innerself": "^0.1.1",
+    "tinymusic": "^1.0.0"
   }
 }
