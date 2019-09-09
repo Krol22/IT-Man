@@ -43,9 +43,9 @@ const resize = () => {
 window.addEventListener('resize', resize);
 resize();
 
-const loadAsset = imageSrc => {
+const loadAsset = (imageSrc, isAudio) => {
   return new Promise(resolve => {
-    const asset = new Image();
+    const asset = isAudio ? new Audio() : new Image();
     asset.src = imageSrc;
     asset.onload = () => {
       resolve(asset);
@@ -58,6 +58,11 @@ const loadAsset = imageSrc => {
 }
 
 const start = async () => {
+
+  window.gsm = new GSM();
+  inputManager.init();
+  await window.gsm.changeState(menuState);
+
   window.assets = {};
   window.assets.player = await loadAsset('IT_Man.png');
   window.assets.computer = await loadAsset('Computer.png');
@@ -67,9 +72,6 @@ const start = async () => {
   window.assets.enemy1 = await loadAsset('Enemy_1.png');
   window.assets.enemy2 = await loadAsset('Enemy_2.png');
 
-  window.gsm = new GSM();
-  inputManager.init();
-  await window.gsm.changeState(menuState);
   gameLoop.start(delta => {
     inputManager.update();
     camera.update();

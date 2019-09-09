@@ -7,6 +7,8 @@ module.exports = function BackingUpModal(state) {
     return html``;
   }
 
+  const value = Math.floor((100 / 40) * buTime);
+
   const top = window.gameCanvas ? `${window.gameCanvas.getBoundingClientRect().height.toFixed(0) / 2 - 90}px` : '50%';
 
   return html`
@@ -23,7 +25,7 @@ module.exports = function BackingUpModal(state) {
     </style>
     <div class="buModal">
       <span class="title">BACKING UP</span>
-      <div class="perc">${buTime}%</div>
+      <div class="perc">${value}%</div>
     </div>
   `
 };
