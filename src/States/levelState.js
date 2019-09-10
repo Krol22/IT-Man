@@ -31,8 +31,8 @@ const enemyGenerator = (x, y, type) => {
       },
       delayTimer: 0,
     },
-    { n: 'D', x: -100, y: -100, width: 96, height: 96, image: type === 2 ? assets.enemy2 : assets.enemy1},
-    { n: 'Ph', x, y, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 96, height: 96, skipCollisionCheck: true },
+    { n: 'D', x: -100, y: -100, width: 96, height: 96, image: type === 2 ? assets.enemy2 : assets.enemy1, offsetX: 12, offsetY: 12},
+    { n: 'Ph', x, y, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 72, height: 72, skipCollisionCheck: true },
   ])
 }
 
