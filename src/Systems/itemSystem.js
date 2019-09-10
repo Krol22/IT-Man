@@ -56,6 +56,7 @@ const itemSystem = {
 
       drawComponent.invisible = true;
 
+      this.player.components['P'].timer = this.player.components['P'].timer + 200;
       window.dispatch('HIDE_PASS_INDICATOR');
       soundManager.play('pickup');
     });

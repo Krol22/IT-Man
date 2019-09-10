@@ -17,7 +17,7 @@ const { ENEMY_SPEED } = require('../const');
 
 const MapGenerator = require('../Heplers/MapGenerator');
 
-const enemyGenerator = (x, y, type) => {
+const enemyGenerator = (x, y, type, goUp = 1) => {
   return new Entity([
     { n: 'E', type, bh: type === 1 ? 'RANDOM' : 'LINEAR', dirTimer: 0, },
     {
@@ -34,7 +34,7 @@ const enemyGenerator = (x, y, type) => {
       delayTimer: 0,
     },
     { n: 'D', x: -100, y: -100, width: 96, height: 96, image: type === 2 ? assets.enemy2 : assets.enemy1, offsetX: 12, offsetY: 12},
-    { n: 'Ph', x, y, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED, width: 72, height: 72, skipCollisionCheck: true },
+    { n: 'Ph', x, y, vx: 0, vy: 0, ax: 0, ay: ENEMY_SPEED * goUp, width: 72, height: 72, skipCollisionCheck: true },
   ])
 }
 
@@ -55,6 +55,8 @@ const level1State = {
 
     const mapGenerator = await new MapGenerator(assets);
     window.dispatch('HIDE_GOM');
+    window.dispatch('HIDE_BU_MODAL');
+    window.dispatch('HIDE_PASS_INDICATOR');
 
     const entities = mapGenerator.loadMap(0);
     entities.push(
@@ -82,11 +84,14 @@ const level1State = {
       new Entity([
         { n: 'S' },
         { n: 'I', name: 'Password', type: 'PASS', pass: 'SECRET_123', floatTimer: 1, floatDirection: -1, timer: 0 },
-        { n: 'D', x: 100, y: 100, width: 52, height: 52, invisible: true, image: assets.password },
+        { n: 'D', x: -100, y: -100, width: 52, height: 52, invisible: true, image: assets.password },
       ]),
-      enemyGenerator(655, 1500, 2),
-      enemyGenerator(655, 1500, 2),
-      enemyGenerator(655, 1500, 1),
+      enemyGenerator(655, 500, 2, -1),
+      enemyGenerator(2395, 500, 2),
+      enemyGenerator(2395, 1400, 2),
+      enemyGenerator(655, 1400, 1),
+      enemyGenerator(655, 2400, 1, -1),
+      enemyGenerator(2395, 2400, 1),
     );
 
     const playerEntity = entities.find(entity => entity.componentTypes.includes('P'));
@@ -101,8 +106,6 @@ const level1State = {
     animationSystem.init(entities);
     spawnSystem.init(entities);
     enemySystem.init(entities);
-
-    soundManager.play('melody');
   },
   update: (delta) => {
     level1State.ecs.update(delta);

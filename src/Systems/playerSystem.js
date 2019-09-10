@@ -25,7 +25,11 @@ const playerSystem = {
     this.systemEntities.forEach(entity => {
       const playerComponent = entity.components['P'];
       if (!playerComponent.alive) {
-
+        entity.components['Ph'].ax = 0;
+        entity.components['Ph'].ay = 0;
+        if (inputManager.keys[SPACE].isDown) {
+          window.gsm.changeState(window.levelState);
+        }
         return;
       }
 
@@ -135,7 +139,6 @@ const playerSystem = {
       playerComponent.timer--;
       window.dispatch('UPDATE_TIME', playerComponent.timer);
       if (playerComponent.timer <= 0) {
-        soundManager.stop('melody');
         soundManager.play('death');
         playerComponent.alive = false;
         playerComponent.reason = 'TIME';

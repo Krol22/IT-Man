@@ -63,7 +63,8 @@ module.exports = function reducer(state = init, action, args) {
     case 'UPDATE_TIME': {
       return {
         ...state,
-        timeLeft: args[0]
+        timeLeft: args[0],
+        score: state.score + 0.1
       };
     }
     case 'SHOW_GOM': {

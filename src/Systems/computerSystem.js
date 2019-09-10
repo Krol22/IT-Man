@@ -59,7 +59,7 @@ const handleComputerInteraction = system => {
         window.dispatch('ADD_SCORE', 100);
         window.dispatch('HIDE_BU_MODAL');
         soundManager.play('fixing');
-        this.playerEntity.components['P'].timer = this.playerEntity.components['P'].timer + 600;
+        this.playerEntity.components['P'].timer = this.playerEntity.components['P'].timer + 700;
       }
       break;
     case 'LOCKED':

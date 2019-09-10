@@ -74,8 +74,8 @@ const spawnSystem = {
 
         window.dispatch('SET_PASS_INDICATOR', xi, yi);
       }
-
       window.dispatch('SET_INDICATOR', x, y);
+
     }
   },
 };

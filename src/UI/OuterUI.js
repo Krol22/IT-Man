@@ -26,7 +26,7 @@ module.exports = function OuterUI(state) {
       }
     </style>
     <div class="ui">
-      <span>SCORE: ${score}</span>
+      <span>SCORE: ${score.toFixed(0)}</span>
       <span class="${timeLeft < 400 && 'danger'}">TIME: ${timeLeft}</span>
     </div>
   `;

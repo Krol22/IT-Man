@@ -38,6 +38,7 @@ module.exports = function ComputerIndicator(state) {
         font-size: 20px;
         font-weight: 700;
         color: #dd00aa;
+        text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
         position: absolute;
         transform: translate(${(xi - x)}px, ${(yi - y) + currentHeigth / 2}px);
       }

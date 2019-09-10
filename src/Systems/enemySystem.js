@@ -171,7 +171,6 @@ const enemySystem = {
 
       if(collides(phC, entity.components['Ph'])) {
         this.player.components['P'].alive = false;
-        soundManager.stop('melody');
         soundManager.play('death');
         this.player.components['P'].reason = 'VIRUS';
         window.dispatch('SHOW_GOM', 'Computer Virus got you!');

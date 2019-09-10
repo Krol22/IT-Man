@@ -4,65 +4,6 @@ module.exports = {
   init: () => {
     const tempo = 210;
 
-    const melodySequence = [
-      'B1 q',
-      '- q',
-      'D2 q',
-      '- q',
-      'Gb2 q',
-      'Gb2 q',
-
-      'B1 q',
-      'D2 q',
-      '- q',
-      'Gb2 q',
-      'Gb2 q',
-      'B1 q',
-
-      'D2 q',
-      '- q',
-      'Gb2 q',
-      'Gb2 q',
-      'B1 q',
-      '- q',
-
-      'D2 q',
-      '- q',
-      'Gb2 q',
-      'Gb2 q',
-      'B1 q',
-      'D2 q',
-
-      '- q',
-      'Gb2 q',
-      'Gb2 q',
-      'B1 q',
-      'D2 q',
-      '- q',
-
-      'G2 q',
-      'G2 q',
-      'B1 q',
-      '- q',
-      'D2 q',
-      '- q',
-
-      'G2 q',
-      'G2 q',
-      'B1 q',
-      'D2 q',
-      '- q',
-      'G2 q',
-
-      'G2 q',
-      '- q',
-      'D2 q',
-      '- q',
-      'G2 q',
-      'G2 q',
-    ];
-
-    mc = new AudioContext();
     ac = new AudioContext();
     this.sounds = {};
 
@@ -83,11 +24,6 @@ module.exports = {
     this.sounds.pickup.gain.gain.value = 0.4;
     this.sounds.pickup.staccato = 0.2;
     this.sounds.pickup.loop = false;
-
-    this.sounds.melody = new TinyMusic.Sequence(mc, tempo, melodySequence);
-    this.sounds.melody.createCustomWave([-0.8, 1, 0.8, 0.8, -0.8, -0.8, -1]);
-    this.sounds.melody.gain.gain.value = 0.2;
-    this.sounds.melody.staccato = 0.2;
   },
   play: sound => {
     this.sounds[sound].play();  
