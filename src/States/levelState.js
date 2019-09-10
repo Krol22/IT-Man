@@ -1,5 +1,7 @@
 const { ECS, Entity } = require('../Engine/ecs');
 
+const soundManager = require('../Heplers/SoundManager');
+
 const playerSystem = require('../Systems/playerSystem');
 const physicsSystem = require('../Systems/physicsSystem');
 const drawSystem = require('../Systems/drawSystem');
@@ -99,6 +101,8 @@ const level1State = {
     animationSystem.init(entities);
     spawnSystem.init(entities);
     enemySystem.init(entities);
+
+    soundManager.play('melody');
   },
   update: (delta) => {
     level1State.ecs.update(delta);

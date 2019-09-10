@@ -50,15 +50,15 @@ const drawSystem = {
 
       const frameWidth = 16;
       const frameHeight = 16;
-
-      const physicsComponent = entity.components['Ph'];
-      if (physicsComponent) {
-        this.context.save();
-        this.context.translate(physicsComponent.x * SCALE, physicsComponent.y * SCALE);
-        this.context.strokeStyle = '#ff0000';
-        this.context.strokeRect(0, 0, physicsComponent.width * SCALE, physicsComponent.height * SCALE)
-        this.context.restore();
-      }
+//
+      // const physicsComponent = entity.components['Ph'];
+      // if (physicsComponent) {
+        // this.context.save();
+        // this.context.translate(physicsComponent.x * SCALE, physicsComponent.y * SCALE);
+        // this.context.strokeStyle = '#ff0000';
+        // this.context.strokeRect(0, 0, physicsComponent.width * SCALE, physicsComponent.height * SCALE)
+        // this.context.restore();
+      // }
 // // //
       if (!image) { 
         return; 

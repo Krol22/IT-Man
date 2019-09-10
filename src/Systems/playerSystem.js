@@ -25,7 +25,7 @@ const playerSystem = {
     this.systemEntities.forEach(entity => {
       const playerComponent = entity.components['P'];
       if (!playerComponent.alive) {
-        window.dispatch('SHOW_GOM', playerComponent.reason === 'TIME' ? 'Your time finished!' : 'Computer virus got you!')
+
         return;
       }
 
@@ -135,10 +135,11 @@ const playerSystem = {
       playerComponent.timer--;
       window.dispatch('UPDATE_TIME', playerComponent.timer);
       if (playerComponent.timer <= 0) {
+        soundManager.stop('melody');
         soundManager.play('death');
         playerComponent.alive = false;
         playerComponent.reason = 'TIME';
-        window.dispatch('SHOW_GOM');
+        window.dispatch('SHOW_GOM', 'Your time finished!');
       }
     });
   }
